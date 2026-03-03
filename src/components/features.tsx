@@ -6,7 +6,7 @@ const features = [
     {
         icon: Zap,
         title: "Blazing Fast",
-        description: "Built for speed using Rust and Electron. Cull thousands of photos in minutes, not hours.",
+        description: "Built for speed with Electron and native image processing. Cull thousands of photos in minutes, not hours.",
     },
     {
         icon: Image,
