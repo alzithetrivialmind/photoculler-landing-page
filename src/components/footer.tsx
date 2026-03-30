@@ -33,8 +33,8 @@ export function Footer() {
                     <div>
                         <h4 className="font-bold text-sm uppercase tracking-wider mb-4 text-neutral-900 dark:text-white">Support</h4>
                         <ul className="space-y-3 text-sm text-neutral-500 dark:text-neutral-400">
-                            <li><a href="https://github.com/alzithetrivialmind/SnapCuller/issues" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Report a Bug</a></li>
-                            <li><a href="https://github.com/alzithetrivialmind/SnapCuller" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">GitHub</a></li>
+                            <li><a href="https://github.com/alzithetrivialmind/snapculler-landing-page/issues" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Report a Bug</a></li>
+                            <li><a href="https://github.com/alzithetrivialmind/snapculler-landing-page" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">GitHub</a></li>
                             <li><a href="mailto:support@snapculler.com" className="hover:text-foreground transition-colors">Contact</a></li>
                         </ul>
                     </div>
@@ -64,7 +64,7 @@ export function Footer() {
                     </p>
                     <div className="flex items-center gap-4">
                         <a
-                            href="https://github.com/alzithetrivialmind/SnapCuller"
+                            href="https://github.com/alzithetrivialmind/snapculler-landing-page"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-neutral-400 hover:text-foreground transition-colors"

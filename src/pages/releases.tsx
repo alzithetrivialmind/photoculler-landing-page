@@ -256,7 +256,7 @@ export function ReleasesPage() {
                         className="text-center mt-16"
                     >
                         <a
-                            href="https://github.com/alzithetrivialmind/SnapCuller/releases"
+                            href="https://github.com/alzithetrivialmind/snapculler-landing-page/releases"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50 text-sm font-medium hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors"

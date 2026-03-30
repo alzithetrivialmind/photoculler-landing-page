@@ -32,7 +32,7 @@ SnapCuller is designed for photographers who need to sort through thousands of s
 
 1.  Clone the repository:
     ```bash
-    git clone https://github.com/alzithetrivialmind/SnapCuller.git
+    git clone https://github.com/alzithetrivialmind/snapculler-landing-page.git
     ```
 2.  Install dependencies:
     ```bash
