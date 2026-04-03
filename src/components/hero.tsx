@@ -45,14 +45,14 @@ export function Hero() {
         fetch('https://snap-culler-proxy.vercel.app/api/stats')
             .then(res => res.json())
             .then(data => {
-                if (data.total_downloads !== undefined && data.latest_version) {
+                if (data && data.total_downloads !== undefined) {
                     setStats(data)
                 }
             })
             .catch(err => console.error("Failed to fetch stats", err))
     }, [])
 
-    const displayedDownloads = stats ? stats.total_downloads + 120 : 0
+    const displayedDownloads = stats ? stats.total_downloads + 120 : 120
     const versionLabel = stats?.latest_version ? `v${stats.latest_version}` : "v1.1.5"
 
     return (

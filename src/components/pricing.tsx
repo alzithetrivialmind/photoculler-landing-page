@@ -1,8 +1,24 @@
-import { Check, X } from "lucide-react"
+import { Check, X, Users } from "lucide-react"
 import { motion } from "framer-motion"
 import Tilt from 'react-parallax-tilt'
+import { useState, useEffect } from "react"
 
 export function Pricing() {
+    const [stats, setStats] = useState<{ total_downloads: number, latest_version: string } | null>(null)
+
+    useEffect(() => {
+        fetch('https://snap-culler-proxy.vercel.app/api/stats')
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.total_downloads !== undefined) {
+                    setStats(data)
+                }
+            })
+            .catch(err => console.error("Failed to fetch stats", err))
+    }, [])
+
+    const displayedDownloads = stats ? stats.total_downloads + 120 : 120
+
     return (
         <section id="pricing" className="py-24 relative overflow-hidden">
             <div className="container mx-auto px-4 relative z-10">
@@ -62,9 +78,15 @@ export function Pricing() {
                                     <span className="text-neutral-600 dark:text-neutral-300">Max 3 Buckets</span>
                                 </li>
                             </ul>
-                            <a href="#" className="w-full inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-neutral-200 dark:border-neutral-800 bg-transparent hover:bg-neutral-100 dark:hover:bg-neutral-800 h-12 px-8">
-                                Download Free
-                            </a>
+                            <div className="space-y-4">
+                                <a href="#" className="w-full inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-neutral-200 dark:border-neutral-800 bg-transparent hover:bg-neutral-100 dark:hover:bg-neutral-800 h-12 px-8">
+                                    Download Free
+                                </a>
+                                <div className="flex items-center justify-center gap-2 text-xs font-semibold text-indigo-500/80 dark:text-indigo-400/80 uppercase tracking-wider">
+                                    <Users className="h-3.5 w-3.5" />
+                                    <span>{displayedDownloads.toLocaleString()}+ Downloaded</span>
+                                </div>
+                            </div>
                         </Tilt>
                     </motion.div>
 
