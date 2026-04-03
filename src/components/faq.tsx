@@ -20,6 +20,10 @@ const faqs = [
         answer: "SnapCuller uses industry-standard sidecar files. When you rate or label a photo, it creates a small metadata file that Adobe Lightroom and Capture One read automatically. Your sorting work is preserved perfectly."
     },
     {
+        question: "Do you offer refunds?",
+        answer: "We offer a fully featured Free Version so you can test SnapCuller thoroughly before purchasing. Because of this opportunity to 'try before you buy', we do not provide refunds for Pro licenses. We recommend exploring the free edition to ensure it meets your needs."
+    },
+    {
         question: "What platforms are supported?",
         answer: "SnapCuller is currently optimized for Windows 10 and 11. We are working hard to bring this same speed to macOS and other platforms very soon."
     },

@@ -92,9 +92,9 @@ export function TermsPage() {
                                     </p>
                                 </div>
                                 <div className="p-6 rounded-2xl border border-neutral-200 dark:border-neutral-800">
-                                    <h3 className="font-bold mb-2">30-Day Money-Back Guarantee</h3>
+                                    <h3 className="font-bold mb-2 text-indigo-500">Purchase Policy</h3>
                                     <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                                        We offer a full refund within 30 days of purchase if you are not satisfied.
+                                        To ensure SnapCuller fits your workflow, we provide a fully functional Free Version for evaluation. Because of this "try before you buy" opportunity, we do not offer refunds once a Pro license has been purchased.
                                     </p>
                                 </div>
                             </div>

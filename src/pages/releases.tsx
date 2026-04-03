@@ -7,9 +7,40 @@ import { SEO } from "@/components/seo"
 
 const releases = [
     {
-        version: "1.1.4",
+        version: "1.1.5",
         date: "2026-04-03",
         latest: true,
+        sections: [
+            {
+                title: "What's New",
+                icon: Rocket,
+                items: [
+                    {
+                        label: "Advanced Metadata Grouping",
+                        description: "Support for grouping by Camera, Lens, and ISO to separate gear setups instantly.",
+                    },
+                    {
+                        label: "Security & Gating Audit",
+                        description: "Enhanced Pro-feature locking for keyboard shortcuts (External Editor, Face Panel) to ensure consistency.",
+                    },
+                ],
+            },
+            {
+                title: "Bug Fixes",
+                icon: Bug,
+                items: [
+                    {
+                        label: "Grid Selection Fix",
+                        description: "Resolved auto-scrolling issues when selecting images in grouped view modes.",
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        version: "1.1.4",
+        date: "2026-04-03",
+        latest: false,
         sections: [
             {
                 title: "What's New",
