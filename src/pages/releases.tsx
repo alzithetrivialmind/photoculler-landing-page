@@ -7,9 +7,48 @@ import { SEO } from "@/components/seo"
 
 const releases = [
     {
-        version: "1.1.5",
+        version: "1.1.6",
         date: "2026-04-03",
         latest: true,
+        sections: [
+            {
+                title: "What's New",
+                icon: Rocket,
+                items: [
+                    {
+                        label: "Native macOS Support",
+                        description: "SnapCuller is now officially available for Mac! Runs natively on Intel and Apple Silicon (M1/M2/M3) for maximum speed.",
+                    },
+                    {
+                        label: "Live Community Momentum",
+                        description: "Added a real-time download counter to our homepage to showcase project growth and support.",
+                    },
+                    {
+                        label: "Refined Branding",
+                        description: "Added official logos that intelligently adapt to your chosen Light or Dark theme.",
+                    },
+                ],
+            },
+            {
+                title: "Improvements & Fixes",
+                icon: Sparkles,
+                items: [
+                    {
+                        label: "Enhanced Feature Security",
+                        description: "Strengthened the protection for professional tools to ensure a consistent experience across versions.",
+                    },
+                    {
+                        label: "Smoother Startup",
+                        description: "Refreshed the loading screen with new branding and improved identification for a better first impression.",
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        version: "1.1.5",
+        date: "2026-04-03",
+        latest: false,
         sections: [
             {
                 title: "What's New",
