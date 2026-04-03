@@ -16,6 +16,8 @@ import { ReleasesPage } from "@/pages/releases"
 import { PrivacyPage } from "@/pages/privacy"
 import { TermsPage } from "@/pages/terms"
 import { SEO } from "@/components/seo"
+import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 // This component ensures the window scrolls to the correct section 
 // when navigating to /#hash routes, because React mounts async.
@@ -69,6 +71,8 @@ function App() {
           <Route path="/terms" element={<TermsPage />} />
         </Routes>
       </BrowserRouter>
+      <Analytics />
+      <SpeedInsights />
     </ThemeProvider>
   )
 }

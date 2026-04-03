@@ -3,8 +3,6 @@ import Lenis from 'lenis';
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { ScrollProgress } from "@/components/scroll-progress"
-import { Analytics } from "@vercel/analytics/react"
-import { SpeedInsights } from "@vercel/speed-insights/react"
 
 
 interface LayoutProps {
@@ -68,8 +66,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 {children}
             </main>
             <Footer />
-            <Analytics />
-            <SpeedInsights />
         </div>
     );
 };
