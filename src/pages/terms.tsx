@@ -10,7 +10,8 @@ export function TermsPage() {
         <div className="min-h-screen bg-background text-foreground">
             <SEO 
                 title="Terms of Service" 
-                description="Our standard terms for using SnapCuller. Simple, clear, and fair." 
+                description="Read our standard license and usage terms. SnapCuller is built to speed up your professional photography workflow." 
+                keywords="SnapCuller license, terms of service, software license, professional photo tool terms"
             />
             <ScrollProgress />
             <Navbar />

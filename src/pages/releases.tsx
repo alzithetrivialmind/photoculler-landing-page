@@ -7,9 +7,26 @@ import { SEO } from "@/components/seo"
 
 const releases = [
     {
+        version: "1.1.7",
+        date: "2026-04-05",
+        latest: true,
+        sections: [
+            {
+                title: "What's New",
+                icon: Rocket,
+                items: [
+                    {
+                        label: "macOS Universal Binary (Production-Ready)",
+                        description: "Fixed a critical build error that prevented the creation of universal .dmg installers. SnapCuller now ships a single .dmg that runs natively on both Intel (x64) and Apple Silicon (M1/M2/M3/M4) Macs.",
+                    },
+                ],
+            },
+        ],
+    },
+    {
         version: "1.1.6",
         date: "2026-04-03",
-        latest: true,
+        latest: false,
         sections: [
             {
                 title: "What's New",
@@ -275,8 +292,9 @@ export function ReleasesPage() {
     return (
         <div className="min-h-screen bg-background text-foreground">
             <SEO 
-                title="Release Notes" 
-                description="Keep track of the latest updates and improvements to SnapCuller. We're always working to make your workflow faster." 
+                title="Releases & Version History" 
+                description="Stay updated with the latest SnapCuller features, performance improvements, and bug fixes. View our version history and changelog."
+                keywords="SnapCuller releases, photo culling updates, software version history, changelog"
             />
             <ScrollProgress />
             <Navbar />

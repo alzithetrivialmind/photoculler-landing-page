@@ -35,6 +35,13 @@ export function Navbar() {
                         </a>
                     ))}
                     <a
+                        href="/docs"
+                        className="relative group text-neutral-600 dark:text-neutral-400 hover:text-foreground transition-colors"
+                    >
+                        Docs
+                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-500 transition-all group-hover:w-full" />
+                    </a>
+                    <a
                         href="/releases"
                         className="relative group text-neutral-600 dark:text-neutral-400 hover:text-foreground transition-colors"
                     >
@@ -77,6 +84,13 @@ export function Navbar() {
                                     {item}
                                 </a>
                             ))}
+                            <a
+                                href="/docs"
+                                onClick={() => setMobileOpen(false)}
+                                className="text-lg font-medium text-neutral-600 dark:text-neutral-400 hover:text-foreground transition-colors py-2"
+                            >
+                                Docs
+                            </a>
                             <a
                                 href="/releases"
                                 onClick={() => setMobileOpen(false)}

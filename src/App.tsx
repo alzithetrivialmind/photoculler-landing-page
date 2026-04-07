@@ -15,6 +15,7 @@ import { Comparison } from "@/components/comparison"
 import { ReleasesPage } from "@/pages/releases"
 import { PrivacyPage } from "@/pages/privacy"
 import { TermsPage } from "@/pages/terms"
+import { DocsPage } from "@/pages/docs"
 import { SEO } from "@/components/seo"
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/react"
@@ -44,7 +45,11 @@ function ScrollHandler() {
 function LandingPage() {
   return (
     <Layout>
-      <SEO />
+      <SEO 
+        title="Fastest Photo Culling & RAW Sorting Tool"
+        description="The fastest way to cull, sort, and select your best shots with zero import time. The ultimate alternative to Narrative Select and AfterShoot for professional photographers."
+        keywords="photo culling software, fast photo selection, RAW sorting tool, Alternative to Narrative Select, wedding photographer workflow"
+      />
       <Hero />
       <VideoDemo />
       <Features />
@@ -69,6 +74,7 @@ function App() {
           <Route path="/releases" element={<ReleasesPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
+          <Route path="/docs" element={<DocsPage />} />
         </Routes>
       </BrowserRouter>
       <Analytics />

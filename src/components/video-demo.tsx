@@ -5,15 +5,15 @@ import { useState, useRef } from "react"
 const screenshots = [
     {
         src: "/screenshot-single.png",
-        label: "Single View — Full-screen photo review with filmstrip",
+        label: "SnapCuller interface showing instant RAW photo preview for wedding photography",
     },
     {
         src: "/screenshot-grid.png",
-        label: "Grid View — Thumbnail overview with ratings & labels",
+        label: "Grid View — High-speed thumbnail overview with professional ratings and color labels",
     },
     {
         src: "/screenshot-compare.png",
-        label: "Compare View — Side-by-side A/B comparison",
+        label: "Compare View — Side-by-side A/B comparison for selecting the sharpest frame",
     },
 ]
 

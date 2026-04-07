@@ -10,7 +10,8 @@ export function PrivacyPage() {
         <div className="min-h-screen bg-background text-foreground">
             <SEO 
                 title="Privacy Policy" 
-                description="Our commitment to your privacy. Learn how SnapCuller handles your data locally on your machine." 
+                description="SnapCuller is built with human privacy in mind. We don't collect personal information or use your photos for AI training. All processing is local." 
+                keywords="SnapCuller privacy, photo data security, local-first software, no-upload photography tool"
             />
             <ScrollProgress />
             <Navbar />
