@@ -3,6 +3,8 @@ import Lenis from 'lenis';
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { ScrollProgress } from "@/components/scroll-progress"
+import { NoiseTexture } from "@/components/noise-texture"
+import { CustomCursor } from "@/components/custom-cursor"
 
 
 interface LayoutProps {
@@ -51,15 +53,17 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     }, []);
 
     return (
-        <div className="min-h-screen bg-background text-foreground font-sans selection:bg-indigo-500/30 selection:text-indigo-600 dark:selection:text-indigo-200 overflow-x-hidden">
+        <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/30 selection:text-primary dark:selection:text-primary overflow-x-hidden">
             {/* Background Gradient Blobs */}
             <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden">
-                <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-[128px] animate-blob mix-blend-multiply filter opacity-50 dark:opacity-20" />
-                <div className="absolute top-0 right-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-[128px] animate-blob animation-delay-2000 mix-blend-multiply filter opacity-50 dark:opacity-20" />
-                <div className="absolute -bottom-32 left-1/4 w-96 h-96 bg-pink-500/20 rounded-full blur-[128px] animate-blob animation-delay-4000 mix-blend-multiply filter opacity-50 dark:opacity-20" />
+                <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/5 dark:bg-primary/10 rounded-full blur-[140px] animate-blob mix-blend-screen filter opacity-30 dark:opacity-50" />
+                <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-secondary/5 dark:bg-secondary/10 rounded-full blur-[140px] animate-blob animation-delay-2000 mix-blend-screen filter opacity-30 dark:opacity-50" />
+                <div className="absolute -bottom-32 left-1/3 w-[600px] h-[600px] bg-primary/2 dark:bg-primary/5 rounded-full blur-[140px] animate-blob animation-delay-4000 mix-blend-screen filter opacity-20 dark:opacity-50" />
             </div>
 
             <ScrollProgress />
+            <NoiseTexture />
+            <CustomCursor />
             <Navbar />
 
             <main className="relative z-10">

@@ -4,15 +4,15 @@ import { useState, useRef } from "react"
 
 const screenshots = [
     {
-        src: "/screenshot-single.png",
+        src: "/Single View.png",
         label: "SnapCuller interface showing instant RAW photo preview for wedding photography",
     },
     {
-        src: "/screenshot-grid.png",
+        src: "/Grid View.png",
         label: "Grid View — High-speed thumbnail overview with professional ratings and color labels",
     },
     {
-        src: "/screenshot-compare.png",
+        src: "/Compare View.png",
         label: "Compare View — Side-by-side A/B comparison for selecting the sharpest frame",
     },
 ]
@@ -68,26 +68,22 @@ export function VideoDemo() {
                         </div>
 
                         {/* Content Area */}
-                        <div className="relative aspect-[16/10] bg-neutral-900 overflow-hidden">
+                        <div className="relative bg-neutral-900 overflow-hidden max-h-[70vh] flex items-center justify-center">
                             {isPlaying ? (
                                 /* ===== VIDEO PLAYER ===== */
                                 <video
                                     ref={videoRef}
-                                    className="w-full h-full object-cover"
+                                    className="w-full h-auto max-h-[70vh] block"
                                     controls
-                                    poster="/screenshot-single.png"
+                                    poster="/Single View.png"
                                     onEnded={() => setIsPlaying(false)}
                                 >
-                                    {/* 
-                                        TARUH VIDEO DI: public/demo-video.mp4
-                                        Format yang didukung: .mp4 (H.264), .webm
-                                    */}
                                     <source src="/demo-video.mp4" type="video/mp4" />
                                     <source src="/demo-video.webm" type="video/webm" />
                                 </video>
                             ) : (
                                 /* ===== SCREENSHOT CAROUSEL + PLAY BUTTON ===== */
-                                <>
+                                <div className="w-full">
                                     <AnimatePresence mode="wait">
                                         <motion.img
                                             key={current}
@@ -97,7 +93,7 @@ export function VideoDemo() {
                                             animate={{ opacity: 1, x: 0 }}
                                             exit={{ opacity: 0, x: -50 }}
                                             transition={{ duration: 0.4 }}
-                                            className="w-full h-full object-cover"
+                                            className="w-full h-auto block"
                                         />
                                     </AnimatePresence>
 
@@ -127,7 +123,7 @@ export function VideoDemo() {
                                     >
                                         <ChevronRight className="h-5 w-5" />
                                     </button>
-                                </>
+                                </div>
                             )}
                         </div>
 

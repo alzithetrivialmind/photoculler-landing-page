@@ -28,3 +28,6 @@ from-apps/
 
 # Legal drafts
 legal_drafts.md
+
+# Agent local files
+.agent/

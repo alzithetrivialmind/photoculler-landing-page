@@ -83,7 +83,7 @@ function ValueCell({ value }: { value: FeatureValue }) {
         )
     }
     return (
-        <span className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">{value}</span>
+        <span className="text-sm font-bold text-primary">{value}</span>
     )
 }
 
@@ -97,10 +97,10 @@ export function Comparison() {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-3xl md:text-5xl font-black mb-6 tracking-tighter">
-                        Free vs <span className="text-indigo-500 dark:text-indigo-400">Pro</span>
+                    <h2 className="text-4xl md:text-6xl font-brand font-black mb-6 tracking-tighter text-foreground text-center">
+                        Free vs <span className="text-gradient">Pro</span>
                     </h2>
-                    <p className="text-lg text-neutral-500 dark:text-neutral-400 max-w-2xl mx-auto">
+                    <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto text-center">
                         A detailed breakdown of every feature across both plans.
                     </p>
                 </motion.div>
@@ -109,13 +109,13 @@ export function Comparison() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="max-w-4xl mx-auto rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50 overflow-hidden"
+                    className="max-w-4xl mx-auto rounded-3xl glass-card overflow-hidden border-black/5 dark:border-white/10"
                 >
                     {/* Table Header */}
-                    <div className="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] sticky top-0 bg-neutral-50 dark:bg-neutral-800 border-b border-neutral-200 dark:border-neutral-700 z-10">
-                        <div className="px-6 py-4 text-sm font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">Feature</div>
-                        <div className="px-4 py-4 text-center text-sm font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">Free</div>
-                        <div className="px-4 py-4 text-center text-sm font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Pro</div>
+                    <div className="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] sticky top-0 bg-white/80 dark:bg-black/40 backdrop-blur-3xl border-b border-black/5 dark:border-white/10 z-10 font-bold">
+                        <div className="px-6 py-5 text-xs font-black text-neutral-500 uppercase tracking-widest font-brand">Feature</div>
+                        <div className="px-4 py-5 text-center text-xs font-black text-neutral-500 uppercase tracking-widest font-brand">Free</div>
+                        <div className="px-4 py-5 text-center text-xs font-black uppercase tracking-widest text-primary font-brand drop-shadow-[0_0_10px_rgba(242,127,178,0.3)]">Pro</div>
                     </div>
 
                     {/* Table Body */}
@@ -146,15 +146,15 @@ export function Comparison() {
                     ))}
 
                     {/* Bottom CTA */}
-                    <div className="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] bg-neutral-50 dark:bg-neutral-800/50 border-t border-neutral-200 dark:border-neutral-700">
-                        <div className="px-6 py-5">
-                            <span className="text-sm font-bold text-neutral-900 dark:text-white">Price</span>
+                    <div className="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] bg-neutral-50/50 dark:bg-white/5 border-t border-black/5 dark:border-white/10">
+                        <div className="px-6 py-6 font-bold">
+                            <span className="text-sm font-black text-foreground uppercase tracking-widest font-brand">Price</span>
                         </div>
-                        <div className="px-4 py-5 flex items-center justify-center">
-                            <span className="text-lg font-black text-neutral-900 dark:text-white">$0</span>
+                        <div className="px-4 py-6 flex items-center justify-center">
+                            <span className="text-xl font-brand font-black text-foreground">$0</span>
                         </div>
-                        <div className="px-4 py-5 flex items-center justify-center">
-                            <span className="text-lg font-black text-indigo-600 dark:text-indigo-400">$29</span>
+                        <div className="px-4 py-6 flex items-center justify-center">
+                            <span className="text-xl font-brand font-black text-primary drop-shadow-[0_0_10px_rgba(242,127,178,0.3)]">$29</span>
                         </div>
                     </div>
                 </motion.div>
@@ -164,15 +164,15 @@ export function Comparison() {
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mt-10"
+                    className="text-center mt-12"
                 >
                     <a
                         href="#pricing"
-                        className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-indigo-600 text-white text-sm font-bold hover:bg-indigo-700 transition-all hover:scale-105 shadow-lg shadow-indigo-500/25"
+                        className="inline-flex items-center justify-center h-14 px-10 rounded-2xl bg-primary text-black text-base font-bold hover:bg-white transition-all hover:scale-105 active:scale-95 shadow-[0_10px_30px_rgba(242,127,178,0.3)]"
                     >
                         Upgrade to Pro
                     </a>
-                    <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-3">One-time payment. No subscription.</p>
+                    <p className="text-sm text-neutral-500 mt-4">One-time payment. No subscription.</p>
                 </motion.div>
             </div>
         </section>

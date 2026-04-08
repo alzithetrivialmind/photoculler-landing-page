@@ -1,7 +1,8 @@
 import { ArrowDown, Users, Monitor, Apple } from "lucide-react"
-import { motion, type Variants } from "framer-motion"
+import { motion, type Variants, useMotionValue, useSpring, useMotionTemplate } from "framer-motion"
 import { useState, useEffect } from "react"
 import { detectOS, type OS } from "../utils/os"
+import { Magnetic } from "./magnetic"
 
 // Text Reveal Component
 const Reveal = ({ children, delay = 0, className = "" }: { children: string, delay?: number, className?: string }) => {
@@ -68,32 +69,55 @@ export function Hero() {
     const downloadUrl = `https://snap-culler-proxy.vercel.app/${fileName}`
     const PlatformIcon = os === 'mac' ? Apple : Monitor
 
+    // Spotlight logic
+    const mouseX = useMotionValue(0)
+    const mouseY = useMotionValue(0)
+    const springX = useSpring(mouseX, { damping: 50, stiffness: 200 })
+    const springY = useSpring(mouseY, { damping: 50, stiffness: 200 })
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        const { currentTarget, clientX, clientY } = e
+        const { left, top } = currentTarget.getBoundingClientRect()
+        mouseX.set(clientX - left)
+        mouseY.set(clientY - top)
+    }
+
     return (
-        <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden pt-20">
+        <section 
+            onMouseMove={handleMouseMove}
+            className="group/hero relative min-h-[95vh] flex flex-col items-center justify-center overflow-hidden pt-20"
+        >
+            {/* Spotlight Effect */}
+            <motion.div
+                className="pointer-events-none absolute -inset-px opacity-0 group-hover/hero:opacity-100 transition-opacity duration-500 z-0"
+                style={{
+                    background: useMotionTemplate`radial-gradient(800px circle at ${springX}px ${springY}px, rgba(242,127,178,0.1), transparent 80%)`
+                }}
+            />
             <div className="container mx-auto px-4 text-center relative z-10 flex flex-col items-center">
 
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5 }}
                 >
                     <a
                         href="/releases"
-                        className="inline-flex items-center rounded-full border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 px-3 py-1 text-sm text-neutral-900 dark:text-neutral-100 mb-8 backdrop-blur-xl hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+                        className="inline-flex items-center rounded-full border border-black/5 dark:border-white/10 bg-white/40 dark:bg-white/5 backdrop-blur-xl px-4 py-1.5 text-sm font-medium text-foreground dark:text-white mb-8 hover:opacity-80 transition-all border-b-primary shadow-sm dark:shadow-[0_0_20px_rgba(242,127,178,0.1)]"
                     >
-                        <span className="flex h-2 w-2 rounded-full bg-indigo-500 mr-2 animate-pulse"></span>
-                        {versionLabel} Now Available
+                        <span className="flex h-2 w-2 rounded-full bg-primary mr-2 animate-pulse shadow-[0_0_8px_#f27fb2]"></span>
+                        {versionLabel} Released
                     </a>
                 </motion.div>
 
                 <div className="mb-8 max-w-5xl">
-                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-none mb-2">
+                    <h1 className="text-5xl md:text-7xl lg:text-[100px] font-brand font-black tracking-tighter leading-[0.9] mb-4">
                         <span className="sr-only">SnapCuller — The Fastest Photo Culling Software</span>
-                        <Reveal delay={0.2} className="bg-gradient-to-b from-neutral-900 via-neutral-700 to-neutral-400 dark:from-white dark:via-neutral-200 dark:to-neutral-500 bg-clip-text text-transparent">
+                        <Reveal delay={0.2} className="text-foreground dark:text-white drop-shadow-2xl">
                             Cull Photos at
                         </Reveal>
                         <br className="hidden md:block" />
-                        <Reveal delay={0.6} className="text-indigo-500 dark:text-indigo-400">
+                        <Reveal delay={0.6} className="text-gradient">
                             Muscle Memory Speed
                         </Reveal>
                     </h1>
@@ -113,45 +137,49 @@ export function Hero() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1.2, duration: 0.5 }}
-                    className="flex flex-col sm:flex-row gap-5 justify-center w-full sm:w-auto"
+                    className="flex flex-col sm:flex-row gap-8 justify-center w-full sm:w-auto mt-4"
                 >
-                    <a
-                        href={downloadUrl}
-                        title={`Download SnapCuller Photo Culling Software for ${platformName}`}
-                        aria-label={`Download SnapCuller for ${platformName}`}
-                        className="relative inline-flex h-14 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-50 transition-transform hover:scale-105"
-                    >
-                        <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-                        <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-neutral-950 px-8 py-1 text-sm font-medium text-white backdrop-blur-3xl hover:bg-neutral-900 transition-colors gap-2">
-                            <PlatformIcon className="h-5 w-5" />
-                            Download for {platformName}
-                        </span>
-                    </a>
+                    <Magnetic strength={0.2}>
+                        <a
+                            href={downloadUrl}
+                            title={`Download SnapCuller Photo Culling Software for ${platformName}`}
+                            aria-label={`Download SnapCuller for ${platformName}`}
+                            className="relative inline-flex h-16 overflow-hidden rounded-2xl p-[1px] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background transition-transform hover:scale-105 active:scale-95 group shadow-[0_20px_40px_rgba(242,127,178,0.2)]"
+                        >
+                            <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#f27fb2_0%,#445ca9_50%,#f27fb2_100%)]" />
+                            <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-2xl bg-black px-10 py-1 text-base font-bold text-white backdrop-blur-3xl transition-colors gap-3 group-hover:bg-black/90">
+                                <PlatformIcon className="h-6 w-6 text-primary" />
+                                Download for {platformName}
+                            </span>
+                        </a>
+                    </Magnetic>
 
-                    <a
-                        href="#features"
-                        className="inline-flex items-center justify-center h-14 px-8 rounded-full border border-neutral-200 dark:border-neutral-800 bg-transparent hover:bg-neutral-100 dark:hover:bg-neutral-900 text-neutral-900 dark:text-white text-sm font-medium transition-all hover:scale-105"
-                    >
-                        Learn More
-                    </a>
+                    <Magnetic strength={0.3}>
+                        <a
+                            href="#features"
+                            className="inline-flex items-center justify-center h-16 px-12 rounded-2xl border border-black/5 dark:border-white/20 glass text-foreground dark:text-white text-base font-bold transition-all hover:scale-105 hover:bg-white/10 active:scale-95 shadow-xl"
+                        >
+                            Learn More
+                        </a>
+                    </Magnetic>
                 </motion.div>
 
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1.3, duration: 0.5 }}
-                    className="mt-8 flex flex-col items-center gap-3"
+                    className="mt-10 flex flex-col items-center gap-4"
                 >
                     {displayedDownloads > 0 && (
-                        <div className="flex items-center gap-2 text-sm font-bold text-indigo-500 bg-indigo-50 dark:bg-indigo-500/10 px-4 py-1.5 rounded-full border border-indigo-200 dark:border-indigo-500/20 shadow-sm shadow-indigo-500/10">
+                        <div className="flex items-center gap-2 text-sm font-bold text-primary bg-primary/10 px-5 py-2 rounded-full border border-primary/20 shadow-[0_0_15px_rgba(242,127,178,0.1)]">
                             <Users className="h-4 w-4" />
                             <span>Trusted by {displayedDownloads.toLocaleString()}+ photographers</span>
                         </div>
                     )}
                     
-                    <div className="flex items-center gap-2 text-sm font-medium text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-900/50 px-4 py-2 rounded-full border border-neutral-200 dark:border-neutral-800">
-                        <span className="h-2 w-2 rounded-full bg-emerald-500"></span>
-                        No subscriptions. Pro is just <span className="font-bold text-neutral-900 dark:text-white">$29 Lifetime</span>.
+                    <div className="flex items-center gap-2 text-sm font-medium text-neutral-600 dark:text-neutral-400 glass px-5 py-2 rounded-full border border-black/5 dark:border-white/5">
+                        <span className="h-2 w-2 rounded-full bg-primary animate-pulse shadow-[0_0_5px_#f27fb2]"></span>
+                        No subscriptions. Pro is just <span className="text-neutral-500 line-through decoration-primary/30 mx-1">$39</span> <span className="font-bold text-neutral-900 dark:text-white">$29 Lifetime</span>.
                     </div>
                 </motion.div>
             </div>

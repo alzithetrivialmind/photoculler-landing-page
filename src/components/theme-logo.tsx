@@ -1,4 +1,4 @@
-import { useTheme } from "@/components/theme-provider"
+// ThemeLogo component for SnapCuller branding
 
 interface ThemeLogoProps {
     className?: string
@@ -6,16 +6,11 @@ interface ThemeLogoProps {
 }
 
 export function ThemeLogo({ className = "h-8 w-auto", alt = "SnapCuller Logo" }: ThemeLogoProps) {
-    const { theme } = useTheme()
-
-    // Determine the effective theme (handle "system" case)
-    const isDark =
-        theme === "dark" ||
-        (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    // Since the SVG uses the brand gradient, it works beautifully across all themes
 
     return (
         <img
-            src={isDark ? "/logo-dark.png" : "/logo-light.png"}
+            src="/logo-resmi.svg"
             alt={alt}
             className={className}
         />

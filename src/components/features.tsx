@@ -1,6 +1,5 @@
 import { Zap, Image, Keyboard, Eye, HardDrive, Undo2, Layers, Briefcase, FastForward } from "lucide-react"
 import { motion } from "framer-motion"
-import Tilt from 'react-parallax-tilt'
 
 const featureGroups = [
     {
@@ -91,9 +90,9 @@ export function Features() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-3xl md:text-5xl font-black text-center mb-16 tracking-tighter"
+                    className="text-4xl md:text-6xl font-brand font-black text-center mb-20 tracking-tighter text-foreground"
                 >
-                    Designed for <span className="text-indigo-500 dark:text-indigo-400">Pro Workflows</span>
+                    Designed for <span className="text-gradient">Pro Workflows</span>
                 </motion.h2>
 
                 <div className="space-y-20">
@@ -103,10 +102,10 @@ export function Features() {
                                 initial={{ opacity: 0, x: -20 }}
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
-                                className="flex items-center gap-4 mb-8"
+                                className="flex items-center gap-6 mb-10"
                             >
-                                <h3 className="text-2xl md:text-3xl font-bold">{group.title}</h3>
-                                <div className="h-px flex-1 bg-gradient-to-r from-neutral-200 to-transparent dark:from-neutral-800" />
+                                <h3 className="text-2xl md:text-3xl font-brand font-bold text-foreground/90">{group.title}</h3>
+                                <div className="h-px flex-1 bg-gradient-to-r from-primary/20 to-transparent" />
                             </motion.div>
 
                             <motion.div
@@ -118,19 +117,13 @@ export function Features() {
                             >
                                 {group.features.map((feature, index) => (
                                     <motion.div key={index} variants={item}>
-                                        <Tilt
-                                            tiltMaxAngleX={5}
-                                            tiltMaxAngleY={5}
-                                            scale={1.02}
-                                            transitionSpeed={2000}
-                                            className="h-full group p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50 hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-all duration-300 hover:border-indigo-500/30"
-                                        >
-                                            <div className="mb-6 inline-flex p-3 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform duration-300">
-                                                <feature.icon className="h-6 w-6" />
+                                            <div className="h-full group p-8 rounded-2xl glass-card hover:border-primary/30 cursor-pointer">
+                                                <div className="mb-6 inline-flex p-4 rounded-xl bg-primary/10 text-primary group-hover:scale-110 group-hover:bg-primary/20 transition-all duration-300 shadow-[0_0_20px_rgba(242,127,178,0.1)]">
+                                                    <feature.icon className="h-7 w-7" />
+                                                </div>
+                                                <h4 className="text-xl font-brand font-bold mb-3 text-foreground group-hover:text-primary transition-colors">{feature.title}</h4>
+                                                <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed text-sm group-hover:dark:text-neutral-300 transition-colors">{feature.description}</p>
                                             </div>
-                                            <h4 className="text-xl font-bold mb-3">{feature.title}</h4>
-                                            <p className="text-neutral-500 dark:text-neutral-400 leading-relaxed text-sm">{feature.description}</p>
-                                        </Tilt>
                                     </motion.div>
                                 ))}
                             </motion.div>

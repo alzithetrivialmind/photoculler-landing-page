@@ -309,16 +309,16 @@ export function ReleasesPage() {
                     >
                         <a
                             href="/"
-                            className="inline-flex items-center gap-2 text-sm text-neutral-500 dark:text-neutral-400 hover:text-foreground transition-colors mb-8"
+                            className="inline-flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary transition-colors mb-8 group"
                         >
-                            <ArrowLeft className="h-4 w-4" />
+                            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
                             Back to Home
                         </a>
 
                         <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tighter">
-                            Release <span className="text-indigo-500 dark:text-indigo-400">Notes</span>
+                            Release <span className="text-gradient">Notes</span>
                         </h1>
-                        <p className="text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl mx-auto">
+                        <p className="text-xl text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
                             Track every update, improvement, and fix we ship to SnapCuller.
                         </p>
                     </motion.div>
@@ -340,7 +340,7 @@ export function ReleasesPage() {
                                     {/* Timeline Dot */}
                                     <div className="absolute left-4 top-6 hidden md:block">
                                         <div className={`h-5 w-5 rounded-full border-4 ${release.latest
-                                            ? "bg-indigo-500 border-indigo-200 dark:border-indigo-900"
+                                            ? "bg-primary border-primary/20"
                                             : "bg-neutral-400 dark:bg-neutral-600 border-neutral-200 dark:border-neutral-800"
                                             }`} />
                                     </div>
@@ -349,20 +349,20 @@ export function ReleasesPage() {
                                     <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50 overflow-hidden">
                                         {/* Version Header */}
                                         <div className={`px-6 md:px-8 py-6 border-b border-neutral-200 dark:border-neutral-800 ${release.latest
-                                            ? "bg-gradient-to-r from-indigo-500/5 to-purple-500/5 dark:from-indigo-500/10 dark:to-purple-500/10"
+                                            ? "bg-gradient-to-r from-primary/5 to-secondary/5"
                                             : "bg-neutral-50 dark:bg-neutral-900/30"
                                             }`}>
                                             <div className="flex items-center justify-between flex-wrap gap-4">
                                                 <div className="flex items-center gap-3">
                                                     <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full ${release.latest
-                                                        ? "bg-indigo-100 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400"
+                                                        ? "bg-primary/10 text-primary"
                                                         : "bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400"
                                                         }`}>
                                                         <Tag className="h-4 w-4" />
                                                         <span className="text-sm font-bold">v{release.version}</span>
                                                     </div>
                                                     {release.latest && (
-                                                        <span className="px-2 py-0.5 text-xs font-bold rounded-full bg-indigo-500 text-white">
+                                                        <span className="px-2 py-0.5 text-xs font-bold rounded-full bg-brand-gradient text-white">
                                                             Latest
                                                         </span>
                                                     )}
@@ -405,7 +405,7 @@ export function ReleasesPage() {
                                                                 className="flex items-start gap-3 group"
                                                             >
                                                                 <span className={`mt-2 h-1.5 w-1.5 rounded-full flex-shrink-0 ${release.latest
-                                                                    ? "bg-indigo-500 dark:bg-indigo-400"
+                                                                    ? "bg-primary"
                                                                     : "bg-neutral-400 dark:bg-neutral-500"
                                                                     }`} />
                                                                 <div>

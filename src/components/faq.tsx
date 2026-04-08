@@ -50,7 +50,7 @@ function FaqItem({ question, answer, isOpen, onClick }: {
                 onClick={onClick}
                 className="w-full flex items-center justify-between py-6 text-left group"
             >
-                <span className="text-lg font-semibold pr-4 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors">
+                <span className="text-lg font-brand font-bold pr-4 text-foreground hover:text-primary transition-colors">
                     {question}
                 </span>
                 <motion.div
@@ -58,7 +58,7 @@ function FaqItem({ question, answer, isOpen, onClick }: {
                     transition={{ duration: 0.3 }}
                     className="flex-shrink-0"
                 >
-                    <ChevronDown className="h-5 w-5 text-neutral-400" />
+                    <ChevronDown className={`h-5 w-5 transition-colors ${isOpen ? 'text-primary' : 'text-neutral-500'}`} />
                 </motion.div>
             </button>
             <AnimatePresence>
@@ -70,7 +70,7 @@ function FaqItem({ question, answer, isOpen, onClick }: {
                         transition={{ duration: 0.3 }}
                         className="overflow-hidden"
                     >
-                        <p className="pb-6 text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                        <p className="pb-6 text-neutral-600 dark:text-neutral-400 leading-relaxed font-medium">
                             {answer}
                         </p>
                     </motion.div>
@@ -92,15 +92,15 @@ export function FAQ() {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-3xl md:text-5xl font-black mb-6 tracking-tighter">
-                        Frequently Asked <span className="text-indigo-500 dark:text-indigo-400">Questions</span>
+                    <h2 className="text-4xl md:text-6xl font-brand font-black mb-6 tracking-tighter text-foreground">
+                        Frequently Asked <span className="text-gradient">Questions</span>
                     </h2>
-                    <p className="text-xl text-neutral-500 dark:text-neutral-400">
+                    <p className="text-lg text-neutral-600 dark:text-neutral-400 font-medium">
                         Everything you need to know about SnapCuller.
                     </p>
                 </motion.div>
 
-                <div className="max-w-3xl mx-auto rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50 p-2 md:p-8">
+                <div className="max-w-3xl mx-auto rounded-3xl glass-card p-2 md:p-8 border-black/5 dark:border-white/10">
                     {faqs.map((faq, i) => (
                         <FaqItem
                             key={i}

@@ -28,7 +28,7 @@ export function DocsPage() {
     }
 
     return (
-        <div className="min-h-screen bg-background text-foreground selection:bg-indigo-500/30 selection:text-indigo-600 dark:selection:text-indigo-200">
+        <div className="min-h-screen bg-background text-foreground selection:bg-primary/30 selection:text-primary">
             <ScrollProgress />
             <Navbar />
             <div className="pt-24 pb-20">
@@ -40,8 +40,8 @@ export function DocsPage() {
             <div className="container mx-auto px-4 max-w-7xl">
                 {/* Header */}
                 <div className="mb-12 border-b border-neutral-200 dark:border-neutral-800 pb-8">
-                    <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-4">SnapCuller Docs</h1>
-                    <p className="text-xl text-neutral-500 dark:text-neutral-400">Everything you need to know to master your culling workflow.</p>
+                    <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-4">SnapCuller <span className="text-gradient">Docs</span></h1>
+                    <p className="text-xl text-neutral-600 dark:text-neutral-400">Everything you need to know to master your culling workflow.</p>
                 </div>
 
                 <div className="flex flex-col lg:flex-row gap-12">
@@ -56,7 +56,7 @@ export function DocsPage() {
                                         onClick={() => scrollToSection(section.id)}
                                         className={`flex items-center gap-3 px-3 py-2 text-sm rounded-lg transition-colors text-left ${
                                             activeSection === section.id 
-                                                ? "bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-medium" 
+                                                ? "bg-primary/10 text-primary font-bold shadow-sm" 
                                                 : "text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-900"
                                         }`}
                                     >
@@ -69,7 +69,7 @@ export function DocsPage() {
                     </aside>
 
                     {/* Content Area */}
-                    <main className="flex-1 w-full max-w-3xl prose prose-neutral dark:prose-invert prose-indigo prose-headings:font-bold prose-h2:tracking-tight">
+                    <main className="flex-1 w-full max-w-3xl prose prose-neutral dark:prose-invert prose-brand prose-headings:font-black prose-h2:tracking-tight prose-a:text-primary">
                         
                         <div id="getting-started" className="scroll-mt-28">
                             <h2>1. Getting Started</h2>
