@@ -6,45 +6,49 @@ Informasi mengenai color palette dan tipografi yang digunakan dalam aplikasi Sna
 
 SnapCuller menggunakan sistem warna berbasis CSS Variables (HSL) yang mendukung berbagai tema.
 
-### 1. Light Theme (Clean & Professional)
-- **Background**: `hsl(0, 0%, 100%)` (Putih)
-- **Foreground**: `hsl(240, 10%, 4%)` (Hitam Pekat)
-- **Primary**: `hsl(240, 6%, 10%)`
-- **Accent**: `hsl(227, 42%, 47%)` (Blue Professional)
-- **Destructive**: `hsl(0, 84%, 60%)` (Red)
+### 1. Light Theme (Clean Professional - TEMPORARILY DISABLED)
+- **Background**: `hsl(0, 0%, 100%)` (Pure White)
+- **Foreground**: `hsl(240, 10%, 3.9%)` (Dark Gray)
+- **Primary**: `hsl(289, 63%, 55%)` (Vibrant Violet)
+- **Secondary**: `hsl(240, 4.8%, 95.9%)` (Soft Gray)
+- **Accent**: `hsl(227, 60%, 55%)` (Indigo Blue)
+- **Border**: `hsl(240, 5.9%, 90%)`
 
-### 1. Snap Black (Signature Pro - DEFAULT)
-*Identitas utama SnapCuller dengan estetika premium dark mode.*
-- **Background**: `hsl(240, 10%, 2%)` (Deep Black)
-- **Foreground**: `hsl(0, 0%, 98%)` (White Smoke)
-- **Primary**: `hsl(334, 82%, 72%)` (Logo Pink - #f27fb2)
-- **Secondary**: `hsl(226, 43%, 47%)` (Logo Blue - #445ca9)
-- **Accent**: `hsl(334, 82%, 72%)`
-- **Muted**: `hsl(240, 5%, 15%)`
-- **Glass**: `hsla(240, 10%, 5%, 0.8)`
+### 2. Snap Indigo (Premium Deep Night - DEFAULT)
+*Estetika "Premium Night" yang dirancang untuk kenyamanan mata fotografer.*
+- **Background**: `hsl(240, 50%, 3%)` (Deep Indigo Black)
+- **Foreground**: `hsl(240, 10%, 96%)` (Ghost White)
+- **Primary**: `hsl(289, 63%, 68%)` (Orchid / Violet)
+- **Secondary**: `hsl(240, 30%, 12%)` (Dark Navy - Used for backgrounds)
+- **Accent**: `hsl(227, 60%, 55%)` (Indigo Blue - Used for visibility/icons)
+- **Muted**: `hsl(240, 25%, 18%)`
+- **Card**: `hsl(240, 40%, 6%)`
+- **Glass**: `rgba(255, 255, 255, 0.05)`
 
-### 2. Brand Gradient
+### 3. Brand Gradient
 Digunakan untuk elemen hero, CTA, dan aksen premium.
-- **Direction**: `to right / 135deg`
-- **Colors**: `#f27fb2` (Start) to `#445ca9` (End)
+- **Direction**: `to bottom / to right`
+- **Colors**: `from-primary/10 to-transparent` or `from-primary to-accent`
 
 ---
 
-Aplikasi menggunakan tipografi yang dioptimalkan untuk "UI-UX Pro Max Standards" guna mencapai tampilan modern dan profesional.
+## 🔡 Typography
 
-| Jenis | Font Family | Penggunaan |
+Kombinasi tiga font premium dari Google Fonts untuk menciptakan tampilan yang modern dan profesional:
+
+| Brand / Class | Font Family | Peran & Penggunaan |
 | :--- | :--- | :--- |
-| **Sans (Default)** | `DM Sans`, sans-serif | Body text, label, dan konten umum. |
-| **Heading** | `Satoshi`, sans-serif | Heading utama, sub-heading, dan branding. |
-| **Mono** | `JetBrains Mono`, monospace | Versi rilis, kode, dan data teknis. |
+| **font-brand** / **font-outfit** | `Outfit` | **Branding/Header**: Digunakan untuk judul (headers), branding, dan UI utama yang ditonjolkan. |
+| **font-urbanist** | `Urbanist` | **Headline/Aksen**: Font geometris sekunder yang elegan untuk elemen desain estetika tinggi. |
+| **font-sans** | `Inter` | **UI/Konten**: Default sistem untuk keterbacaan tinggi pada teks panjang dan label metadata. |
 
-### Konfigurasi Tailwind:
-```javascript
-fontFamily: {
-    sans: ['Inter', 'sans-serif'],
-    brand: ['Outfit', 'sans-serif'],
-    outfit: ['Outfit', 'sans-serif'],
-    urbanist: ['Urbanist', 'sans-serif'],
+### Konfigurasi Tailwind (v4):
+```css
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --font-brand: "Outfit", sans-serif;
+  --font-outfit: "Outfit", sans-serif;
+  --font-urbanist: "Urbanist", sans-serif;
 }
 ```
 

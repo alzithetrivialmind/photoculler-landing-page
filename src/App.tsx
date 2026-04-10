@@ -17,6 +17,7 @@ import { PrivacyPage } from "@/pages/privacy"
 import { TermsPage } from "@/pages/terms"
 import { DocsPage } from "@/pages/docs"
 import { SEO } from "@/components/seo"
+import { SectionReveal } from "@/components/section-reveal"
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/react"
 
@@ -51,15 +52,33 @@ function LandingPage() {
         keywords="photo culling software, fast photo selection, RAW sorting tool, Alternative to Narrative Select, wedding photographer workflow"
       />
       <Hero />
-      <VideoDemo />
-      <Features />
-      <HowItWorks />
-      <Testimonials />
-      <WhySwitch />
-      <Pricing />
-      <Comparison />
-      <FAQ />
-      <CTA />
+      <SectionReveal direction="none" delay={0.2}>
+        <VideoDemo />
+      </SectionReveal>
+      <SectionReveal>
+        <Features />
+      </SectionReveal>
+      <SectionReveal delay={0.1}>
+        <HowItWorks />
+      </SectionReveal>
+      <SectionReveal direction="left">
+        <Testimonials />
+      </SectionReveal>
+      <SectionReveal direction="right">
+        <WhySwitch />
+      </SectionReveal>
+      <SectionReveal>
+        <Pricing />
+      </SectionReveal>
+      <SectionReveal direction="none">
+        <Comparison />
+      </SectionReveal>
+      <SectionReveal>
+        <FAQ />
+      </SectionReveal>
+      <SectionReveal direction="down">
+        <CTA />
+      </SectionReveal>
     </Layout>
   )
 }

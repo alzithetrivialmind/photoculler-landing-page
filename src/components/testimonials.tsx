@@ -33,7 +33,7 @@ export function Testimonials() {
     return (
         <section className="py-24 relative overflow-hidden">
             {/* Background Glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-indigo-500/5 rounded-full blur-[120px] pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-white/5 rounded-full blur-[120px] pointer-events-none" />
 
             <div className="container mx-auto px-4 relative z-10">
                 {/* Stats Bar */}
@@ -52,8 +52,8 @@ export function Testimonials() {
                             transition={{ delay: i * 0.1 }}
                             className="text-center p-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm"
                         >
-                            <stat.icon className="h-6 w-6 text-indigo-500 mx-auto mb-3" />
-                            <div className="text-2xl md:text-3xl font-black tracking-tighter text-indigo-500 dark:text-indigo-400">
+                            <stat.icon className="h-6 w-6 text-white mx-auto mb-3" />
+                            <div className="text-2xl md:text-3xl font-black tracking-tighter text-white">
                                 {stat.value}
                             </div>
                             <div className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">{stat.label}</div>
@@ -68,7 +68,7 @@ export function Testimonials() {
                     viewport={{ once: true }}
                     className="text-3xl md:text-5xl font-black text-center mb-16 tracking-tighter"
                 >
-                    Loved by <span className="text-indigo-500 dark:text-indigo-400">Photographers</span>
+                    Loved by <span className="text-white">Photographers</span>
                 </motion.h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
@@ -79,12 +79,12 @@ export function Testimonials() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: i * 0.15 }}
-                            className="p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50 hover:border-indigo-500/30 transition-all duration-300"
+                            className="p-8 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50 hover:border-white/30 transition-all duration-300"
                         >
                             {/* Stars */}
                             <div className="flex gap-1 mb-4">
                                 {Array.from({ length: t.rating }).map((_, si) => (
-                                    <Star key={si} className="h-4 w-4 fill-amber-400 text-amber-400" />
+                                    <Star key={si} className="h-4 w-4 fill-white text-white" />
                                 ))}
                             </div>
 

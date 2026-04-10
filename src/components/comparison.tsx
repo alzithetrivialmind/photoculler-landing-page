@@ -70,20 +70,20 @@ const comparison: ComparisonFeature[] = [
 function ValueCell({ value }: { value: FeatureValue }) {
     if (value === true) {
         return (
-            <div className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 dark:bg-emerald-500/20">
-                <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
+            <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary/20 border border-primary/30 shadow-[0_0_15px_rgba(185,124,221,0.2)]">
+                <Check className="h-5 w-5 text-primary" />
             </div>
         )
     }
     if (value === false) {
         return (
-            <div className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-neutral-100 dark:bg-neutral-800">
-                <Minus className="h-3.5 w-3.5 text-neutral-400 dark:text-neutral-600" />
+            <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/5 border border-white/5 opacity-10">
+                <Minus className="h-4 w-4 text-white/50" />
             </div>
         )
     }
     return (
-        <span className="text-sm font-bold text-primary">{value}</span>
+        <span className="text-sm font-black text-white/90 font-brand tracking-tight">{value}</span>
     )
 }
 
@@ -98,7 +98,7 @@ export function Comparison() {
                     className="text-center mb-16"
                 >
                     <h2 className="text-4xl md:text-6xl font-brand font-black mb-6 tracking-tighter text-foreground text-center">
-                        Free vs <span className="text-gradient">Pro</span>
+                        Free vs <span className="text-primary drop-shadow-[0_0_15px_rgba(185,124,221,0.5)]">Pro</span>
                     </h2>
                     <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto text-center">
                         A detailed breakdown of every feature across both plans.
@@ -106,38 +106,37 @@ export function Comparison() {
                 </motion.div>
 
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, scale: 0.98 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    className="max-w-4xl mx-auto rounded-3xl glass-card overflow-hidden border-black/5 dark:border-white/10"
+                    className="max-w-5xl mx-auto glass-hud rounded-[32px] overflow-hidden border border-primary/20 shadow-[0_0_50px_rgba(185,124,221,0.05)]"
                 >
                     {/* Table Header */}
-                    <div className="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] sticky top-0 bg-white/80 dark:bg-black/40 backdrop-blur-3xl border-b border-black/5 dark:border-white/10 z-10 font-bold">
-                        <div className="px-6 py-5 text-xs font-black text-neutral-500 uppercase tracking-widest font-brand">Feature</div>
-                        <div className="px-4 py-5 text-center text-xs font-black text-neutral-500 uppercase tracking-widest font-brand">Free</div>
-                        <div className="px-4 py-5 text-center text-xs font-black uppercase tracking-widest text-primary font-brand drop-shadow-[0_0_10px_rgba(242,127,178,0.3)]">Pro</div>
+                    <div className="grid grid-cols-[1fr_120px_120px] md:grid-cols-[1fr_180px_180px] bg-white/[0.03] backdrop-blur-3xl border-b border-primary/10">
+                        <div className="px-8 py-8 text-xs font-black text-white/40 uppercase tracking-[0.3em] font-urbanist">Classification</div>
+                        <div className="px-4 py-8 text-center text-sm font-black text-white/60 uppercase tracking-widest font-brand">Free</div>
+                        <div className="px-4 py-8 text-center text-sm font-black uppercase tracking-widest text-primary font-brand drop-shadow-[0_0_10px_rgba(185,124,221,0.5)]">Pro</div>
                     </div>
 
                     {/* Table Body */}
                     {comparison.map((group, gi) => (
-                        <div key={gi}>
+                        <div key={gi} className="group/category">
                             {/* Category Header */}
-                            <div className="px-6 py-3 bg-neutral-100/50 dark:bg-neutral-800/30 border-b border-neutral-200 dark:border-neutral-800">
-                                <span className="text-sm font-bold text-neutral-900 dark:text-white">{group.category}</span>
+                            <div className="px-8 py-4 bg-primary/5 border-b border-primary/5">
+                                <span className="text-[10px] font-black tracking-[0.2em] uppercase text-primary/60 font-urbanist">{group.category}</span>
                             </div>
 
                             {/* Feature Rows */}
                             {group.features.map((feature, fi) => (
                                 <div
                                     key={fi}
-                                    className={`grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] border-b border-neutral-100 dark:border-neutral-800/50 last:border-b-0 hover:bg-neutral-50 dark:hover:bg-neutral-800/20 transition-colors ${feature.pro === true && feature.free === false ? "" : ""
-                                        }`}
+                                    className="grid grid-cols-[1fr_120px_120px] md:grid-cols-[1fr_180px_180px] border-b border-white/[0.03] last:border-b-0 hover:bg-white/[0.02] transition-colors"
                                 >
-                                    <div className="px-6 py-3.5 text-sm text-neutral-700 dark:text-neutral-300">{feature.name}</div>
-                                    <div className="px-4 py-3.5 flex items-center justify-center">
+                                    <div className="px-8 py-5 text-sm font-medium text-white/80 font-urbanist">{feature.name}</div>
+                                    <div className="px-4 py-5 flex items-center justify-center bg-black/20">
                                         <ValueCell value={feature.free} />
                                     </div>
-                                    <div className="px-4 py-3.5 flex items-center justify-center">
+                                    <div className="px-4 py-5 flex items-center justify-center bg-primary/5">
                                         <ValueCell value={feature.pro} />
                                     </div>
                                 </div>
@@ -145,16 +144,19 @@ export function Comparison() {
                         </div>
                     ))}
 
-                    {/* Bottom CTA */}
-                    <div className="grid grid-cols-[1fr_100px_100px] md:grid-cols-[1fr_140px_140px] bg-neutral-50/50 dark:bg-white/5 border-t border-black/5 dark:border-white/10">
-                        <div className="px-6 py-6 font-bold">
-                            <span className="text-sm font-black text-foreground uppercase tracking-widest font-brand">Price</span>
+                    {/* Bottom Feature Footer */}
+                    <div className="grid grid-cols-[1fr_120px_120px] md:grid-cols-[1fr_180px_180px] bg-primary/10 border-t border-primary/20">
+                        <div className="px-8 py-8">
+                            <span className="text-sm font-black text-white uppercase tracking-widest font-brand">Commitment</span>
                         </div>
-                        <div className="px-4 py-6 flex items-center justify-center">
-                            <span className="text-xl font-brand font-black text-foreground">$0</span>
+                        <div className="px-4 py-8 flex items-center justify-center">
+                            <span className="text-2xl font-brand font-black text-white/80">$0</span>
                         </div>
-                        <div className="px-4 py-6 flex items-center justify-center">
-                            <span className="text-xl font-brand font-black text-primary drop-shadow-[0_0_10px_rgba(242,127,178,0.3)]">$29</span>
+                        <div className="px-4 py-8 flex items-center justify-center">
+                            <div className="flex flex-col items-center">
+                                <span className="text-3xl font-brand font-black text-primary drop-shadow-[0_0_15px_rgba(185,124,221,0.5)]">$29</span>
+                                <span className="text-[8px] font-bold text-primary/60 uppercase tracking-tighter">One-time payment</span>
+                            </div>
                         </div>
                     </div>
                 </motion.div>
@@ -168,7 +170,7 @@ export function Comparison() {
                 >
                     <a
                         href="#pricing"
-                        className="inline-flex items-center justify-center h-14 px-10 rounded-2xl bg-primary text-black text-base font-bold hover:bg-white transition-all hover:scale-105 active:scale-95 shadow-[0_10px_30px_rgba(242,127,178,0.3)]"
+                        className="inline-flex items-center justify-center h-14 px-10 rounded-2xl btn-primary text-base font-bold transition-all hover:scale-105 active:scale-95 shadow-2xl"
                     >
                         Upgrade to Pro
                     </a>

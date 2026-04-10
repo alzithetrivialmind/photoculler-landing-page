@@ -4,14 +4,15 @@ The official landing page for **SnapCuller**, the lightning-fast photo culling a
 
 ## 🚀 Overview
 
-SnapCuller is designed for photographers who need to sort through thousands of shots instantly. With zero import time and no-lag RAW previews, it keeps your hands on the keyboard and your focus on the best shots.
+SnapCuller is designed for professional photographers who need to sort through thousands of shots instantly. With zero import time and no-lag RAW previews, it eliminate the bottleneck between shooting and editing.
 
 ## ✨ Features
 
--   **Lightning Fast**: Muscle memory speeds for sorting thousands of photos.
--   **Zero Workflow Friction**: No import time, just point to a folder and start culling.
--   **Theme Aware**: Dynamic light and dark mode support with tailored brand visuals.
--   **Stay Updated**: Dedicated releases page to track the latest improvements and features.
+-   **Muscle Memory Speed**: Fast sorting with single-key shortcuts.
+-   **Zero Workflow Friction**: No collections or imports—simply point and cull.
+-   **Snap Indigo Aesthetic**: A premium "Deep Night" interface optimized for eye comfort during long culling sessions.
+-   **Pro Precision Tools**: Military-grade Focus Peaking, AI Face Detection, and Side-by-Side Comparison.
+-   **Stay Updated**: track the latest improvements via the [Releases](https://snapculler.com/releases) page.
 
 ## 🛠️ Technology Stack
 

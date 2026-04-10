@@ -44,7 +44,7 @@ export function WhySwitch() {
     return (
         <section id="why-switch" className="py-24 relative overflow-hidden">
             {/* Background Glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-indigo-500/5 rounded-full blur-[120px] pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
 
             <div className="container mx-auto px-4 relative z-10">
                 <motion.div
@@ -54,9 +54,9 @@ export function WhySwitch() {
                     className="text-center mb-16"
                 >
                     <h2 className="text-3xl md:text-5xl font-black mb-6 tracking-tighter">
-                        Why <span className="text-indigo-500 dark:text-indigo-400">Switch</span> to SnapCuller?
+                        Why <span className="text-primary">Switch</span> to SnapCuller?
                     </h2>
-                    <p className="text-lg text-neutral-500 dark:text-neutral-400 max-w-2xl mx-auto">
+                    <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                         We respect the tools that came before us. But photographers deserve better.
                     </p>
                 </motion.div>
@@ -70,15 +70,15 @@ export function WhySwitch() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: i * 0.1 }}
-                            className="p-5 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white/50 dark:bg-neutral-900/30"
+                            className="p-5 rounded-xl border border-divider bg-card/50 dark:bg-neutral-900/30"
                         >
                             <div className="flex items-center justify-between mb-3">
-                                <span className="text-sm font-bold text-neutral-900 dark:text-white">{comp.name}</span>
-                                <span className="text-xs font-bold px-2 py-1 rounded-full bg-red-100 dark:bg-red-500/10 text-red-600 dark:text-red-400">
+                                <span className="text-sm font-bold text-foreground">{comp.name}</span>
+                                <span className="text-xs font-bold px-2 py-1 rounded-full bg-muted text-muted-foreground">
                                     {comp.price}
                                 </span>
                             </div>
-                            <p className="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                            <p className="text-sm text-muted-foreground leading-relaxed">
                                 {comp.painPoint}
                             </p>
                         </motion.div>
@@ -92,14 +92,14 @@ export function WhySwitch() {
                     viewport={{ once: true }}
                     className="flex justify-center mb-16"
                 >
-                    <div className="flex items-center gap-3 text-neutral-400 dark:text-neutral-600">
-                        <div className="h-px w-12 bg-neutral-300 dark:bg-neutral-700" />
-                        <ArrowRight className="h-5 w-5 text-indigo-500" />
-                        <span className="text-sm font-bold text-indigo-500 dark:text-indigo-400 uppercase tracking-wider">
+                    <div className="flex items-center gap-3 text-muted-foreground">
+                        <div className="h-px w-12 bg-border" />
+                        <ArrowRight className="h-5 w-5 text-primary" />
+                        <span className="text-sm font-bold text-foreground uppercase tracking-wider">
                             SnapCuller's Approach
                         </span>
-                        <ArrowRight className="h-5 w-5 text-indigo-500 rotate-180 hidden" />
-                        <div className="h-px w-12 bg-neutral-300 dark:bg-neutral-700" />
+                        <ArrowRight className="h-5 w-5 text-primary rotate-180 hidden" />
+                        <div className="h-px w-12 bg-border" />
                     </div>
                 </motion.div>
 
@@ -112,19 +112,19 @@ export function WhySwitch() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: i * 0.15 }}
-                            className="relative p-8 rounded-2xl border border-indigo-500/20 bg-gradient-to-b from-indigo-500/5 to-transparent dark:from-indigo-500/10 dark:to-transparent hover:border-indigo-500/40 transition-all duration-300 group"
+                            className="relative p-8 rounded-2xl border border-border glass hover:border-primary/30 transition-all duration-300 group"
                         >
                             {/* Highlight Badge */}
-                            <div className="absolute -top-3 right-6 px-3 py-1 rounded-full bg-indigo-500 text-white text-xs font-bold shadow-lg shadow-indigo-500/25">
+                            <div className="absolute -top-3 right-6 px-3 py-1 rounded-full bg-foreground text-background text-xs font-bold shadow-lg">
                                 {adv.highlight}
                             </div>
 
-                            <div className="mb-5 inline-flex p-3 rounded-xl bg-indigo-100 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform duration-300">
+                            <div className="mb-5 inline-flex p-3 rounded-xl bg-primary/10 text-primary group-hover:scale-110 transition-transform duration-300 border border-primary/20">
                                 <adv.icon className="h-6 w-6" />
                             </div>
 
                             <h3 className="text-xl font-bold mb-3">{adv.title}</h3>
-                            <p className="text-neutral-500 dark:text-neutral-400 leading-relaxed text-sm">
+                            <p className="text-muted-foreground leading-relaxed text-sm">
                                 {adv.description}
                             </p>
                         </motion.div>
