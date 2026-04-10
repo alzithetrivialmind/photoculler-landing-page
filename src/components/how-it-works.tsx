@@ -8,7 +8,8 @@ const steps = [
         step: "01",
         title: "Point & Shoot",
         description: "Simply drag & drop any folder. SnapCuller instantly accesses all your photos with zero import time—including professional RAW formats.",
-        image: "/assets/point-and-shoot.gif"
+        image: "/assets/point-and-shoot.mp4",
+        isVideo: true
     },
     {
         icon: Keyboard,
@@ -74,7 +75,7 @@ export function HowItWorks() {
                     </div>
 
                     <div className="space-y-48">
-                        {steps.map((step, index) => (
+                        {steps.map((step: any, index) => (
                             <div key={index} className="relative flex flex-col lg:flex-row gap-16 lg:gap-32 pl-24 md:pl-40 group">
                                 {/* Step Node */}
                                 <div className="absolute left-0 top-0 z-20">
@@ -124,11 +125,22 @@ export function HowItWorks() {
                                             </div>
                                             
                                             <div className="aspect-video relative overflow-hidden bg-background">
-                                                <img 
-                                                    src={step.image} 
-                                                    alt={step.title}
-                                                    className="w-full h-full object-contain opacity-100 transition-transform duration-1000 group-hover:scale-[1.01]"
-                                                />
+                                                {step.isVideo ? (
+                                                    <video 
+                                                        src={step.image} 
+                                                        autoPlay 
+                                                        loop 
+                                                        muted 
+                                                        playsInline
+                                                        className="w-full h-full object-contain opacity-100 transition-transform duration-1000 group-hover:scale-[1.01]"
+                                                    />
+                                                ) : (
+                                                    <img 
+                                                        src={step.image} 
+                                                        alt={step.title}
+                                                        className="w-full h-full object-contain opacity-100 transition-transform duration-1000 group-hover:scale-[1.01]"
+                                                    />
+                                                )}
                                                 <div className="absolute inset-0 bg-linear-to-t from-black/5 to-transparent pointer-events-none" />
                                             </div>
                                         </div>
