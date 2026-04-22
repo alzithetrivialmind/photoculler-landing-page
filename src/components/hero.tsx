@@ -193,13 +193,6 @@ export function Hero() {
                             <span>No Credit Card Required</span>
                         </div>
                     </div>
-                    
-                    <div className="flex items-center gap-3 text-sm font-bold glass px-6 py-2.5 rounded-full border border-primary/30 shadow-[0_0_20px_rgba(185,124,221,0.15)] group transition-all hover:border-primary/50">
-                        <span className="text-muted-foreground font-medium">Free forever for basic use. Pro is</span>
-                        <span className="text-muted-foreground/50 line-through text-xs tracking-tight">$39</span>
-                        <span className="text-2xl text-foreground dark:text-white font-black drop-shadow-[0_0_10px_rgba(185,124,221,0.5)]">$29</span>
-                        <span className="bg-primary/20 text-primary text-[10px] px-2 py-0.5 rounded-md tracking-widest uppercase font-black border border-primary/30">Lifetime</span>
-                    </div>
                 </motion.div>
             </div>
 
