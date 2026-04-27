@@ -51,7 +51,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     }, []);
 
     return (
-        <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/30 selection:text-primary dark:selection:text-primary overflow-x-hidden">
+        <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/30 selection:text-primary dark:selection:text-primary">
             {/* Global HUD Decorations */}
             <div className="fixed inset-0 z-[-1] pointer-events-none bg-grid-hud opacity-30 dark:opacity-50" />
             
