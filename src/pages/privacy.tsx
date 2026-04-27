@@ -1,22 +1,17 @@
 import { motion } from "framer-motion"
 import { Shield, Lock, Eye, Database, Globe, UserCheck, Mail, ArrowLeft } from "lucide-react"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { ScrollProgress } from "@/components/scroll-progress"
+import Layout from "@/components/layout"
 import { SEO } from "@/components/seo"
 
 export function PrivacyPage() {
     return (
-        <div className="min-h-screen bg-background text-foreground">
+        <Layout>
             <SEO 
                 title="Privacy Policy" 
                 description="SnapCuller is built with human privacy in mind. We don't collect personal information or use your photos for AI training. All processing is local." 
                 keywords="SnapCuller privacy, photo data security, local-first software, no-upload photography tool"
             />
-            <ScrollProgress />
-            <Navbar />
-
-            <main className="pt-24 pb-16">
+            <main className="pb-16">
                 <div className="container mx-auto px-4 max-w-4xl">
                     {/* Header */}
                     <motion.div
@@ -187,8 +182,6 @@ export function PrivacyPage() {
                     </div>
                 </div>
             </main>
-
-            <Footer />
-        </div>
+        </Layout>
     )
 }

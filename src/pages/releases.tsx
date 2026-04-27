@@ -1,8 +1,6 @@
 import { motion } from "framer-motion"
 import { Rocket, Sparkles, Tag, ArrowLeft } from "lucide-react"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { ScrollProgress } from "@/components/scroll-progress"
+import Layout from "@/components/layout"
 import { SEO } from "@/components/seo"
 
 const releases = [
@@ -12,16 +10,34 @@ const releases = [
         latest: true,
         sections: [
             {
-                title: "Improvements",
+                title: "What's New",
+                icon: Rocket,
+                items: [
+                    {
+                        label: "Comprehensive Documentation",
+                        description: "A complete rewrite of the user guide and landing page documentation, featuring 9 chapters of detailed workflow recipes and professional troubleshooting.",
+                    },
+                    {
+                        label: "IPTC Template Workflow",
+                        description: "Refined naming conventions in the sidebar to better distinguish template creation from per-image editing.",
+                    },
+                ],
+            },
+            {
+                title: "Improvements & Fixes",
                 icon: Sparkles,
                 items: [
                     {
-                        label: "UI Refinement",
-                        description: "Polished the interface for better readability and a more premium feel.",
+                        label: "Stable Image Pairing",
+                        description: "Fixed sorting inconsistencies when toggling RAW+JPG pairing; gallery results now strictly maintain their original folder index.",
                     },
                     {
-                        label: "Stability",
-                        description: "Minor improvements to ensure a consistent performance across all culling sessions.",
+                        label: "Adaptive UI Logic",
+                        description: "Intelligently hides redundant tools like the sidebar filter in grid view or the IPTC button during multi-select for a cleaner workspace.",
+                    },
+                    {
+                        label: "Premium UI Refinements",
+                        description: "Standardized all sidebar UI elements and micro-alignments for a more cohesive and professional user experience.",
                     },
                 ],
             },
@@ -260,16 +276,13 @@ const releases = [
 
 export function ReleasesPage() {
     return (
-        <div className="min-h-screen bg-background text-foreground">
+        <Layout>
             <SEO
                 title="Releases & Version History"
                 description="Stay updated with the latest SnapCuller features, performance improvements, and bug fixes. View our version history and changelog."
                 keywords="SnapCuller releases, photo culling updates, software version history, changelog"
             />
-            <ScrollProgress />
-            <Navbar />
-
-            <main className="pt-24 pb-16">
+            <main className="pb-16">
                 <div className="container mx-auto px-4">
                     {/* Page Header */}
                     <motion.div
@@ -401,8 +414,6 @@ export function ReleasesPage() {
 
                 </div>
             </main>
-
-            <Footer />
-        </div>
+        </Layout>
     )
 }

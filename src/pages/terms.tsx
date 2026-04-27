@@ -1,22 +1,17 @@
 import { motion } from "framer-motion"
 import { Scale, CreditCard, Ban, Sparkles, AlertCircle, Bookmark, LogOut, Gavel, Mail, ArrowLeft } from "lucide-react"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { ScrollProgress } from "@/components/scroll-progress"
+import Layout from "@/components/layout"
 import { SEO } from "@/components/seo"
 
 export function TermsPage() {
     return (
-        <div className="min-h-screen bg-background text-foreground">
+        <Layout>
             <SEO 
                 title="Terms of Service" 
                 description="Read our standard license and usage terms. SnapCuller is built to speed up your professional photography workflow." 
                 keywords="SnapCuller license, terms of service, software license, professional photo tool terms"
             />
-            <ScrollProgress />
-            <Navbar />
-
-            <main className="pt-24 pb-16">
+            <main className="pb-16">
                 <div className="container mx-auto px-4 max-w-4xl">
                     {/* Header */}
                     <motion.div
@@ -231,8 +226,6 @@ export function TermsPage() {
                     </div>
                 </div>
             </main>
-
-            <Footer />
-        </div>
+        </Layout>
     )
 }

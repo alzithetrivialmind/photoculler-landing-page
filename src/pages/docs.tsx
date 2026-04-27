@@ -1,8 +1,6 @@
 import { useState } from "react"
 import { SEO } from "@/components/seo"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { ScrollProgress } from "@/components/scroll-progress"
+import Layout from "@/components/layout"
 import { motion } from "framer-motion"
 import { 
     LayoutDashboard, 
@@ -49,17 +47,14 @@ export function DocsPage() {
     }
 
     return (
-        <div className="min-h-screen bg-background text-foreground selection:bg-primary/30 selection:text-primary">
-            <ScrollProgress />
-            <Navbar />
+        <Layout>
+            <SEO 
+                title="Comprehensive Documentation | SnapCuller" 
+                description="The definitive guide to mastering SnapCuller. Learn about high-speed culling, AI face detection, metadata management, and professional workflows." 
+            />
             
-            <div className="pt-24 pb-20">
-                <SEO 
-                    title="Comprehensive Documentation | SnapCuller" 
-                    description="The definitive guide to mastering SnapCuller. Learn about high-speed culling, AI face detection, metadata management, and professional workflows." 
-                />
-            
-            <div className="container mx-auto px-4 max-w-7xl">
+            <div className="pb-20">
+                <div className="container mx-auto px-4 max-w-7xl">
                 {/* Header */}
                 <header className="mb-16 border-b border-neutral-200 dark:border-neutral-800 pb-10">
                     <motion.div
@@ -574,8 +569,6 @@ export function DocsPage() {
 
                 </div>
             </div>
-            </div>
-            <Footer />
-        </div>
+        </Layout>
     )
 }
