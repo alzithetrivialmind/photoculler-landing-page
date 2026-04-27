@@ -74,10 +74,10 @@ export function DocsPage() {
                 description="The definitive guide to mastering SnapCuller. Learn about high-speed culling, AI face detection, metadata management, and professional workflows." 
             />
             
-            <div className="pb-20">
+            <div className="pt-32 pb-20">
                 <div className="container mx-auto px-4 max-w-7xl">
                 {/* Header */}
-                <header className="mb-16 border-b border-neutral-200 dark:border-neutral-800 pb-10">
+                <header className="mb-16 border-b border-neutral-200 dark:border-neutral-800 pb-12 pt-8">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -96,7 +96,7 @@ export function DocsPage() {
                     </motion.div>
                 </header>
 
-                <div className="flex flex-col lg:flex-row gap-16">
+                <div className="flex flex-col lg:flex-row gap-16 items-start">
                     {/* Sidebar Navigation */}
                     <aside className="lg:w-72 shrink-0">
                         <div className="sticky top-28 space-y-6">
