@@ -276,17 +276,12 @@ export function DocsPage() {
                                 <div className="space-y-4">
                                     <h4 className="font-bold text-neutral-900 dark:text-white">Burst Stacking</h4>
                                     <p className="text-sm leading-relaxed text-neutral-500 dark:text-neutral-400">
-                                        Automatically group photos taken in rapid succession. You can cull the entire stack as one or pick a "hero" frame.
+                                        Automatically group photos taken in rapid succession. SnapCuller intelligently identifies bursts based on timestamp proximity.
                                     </p>
                                 </div>
                             </div>
-                            <div className="grid grid-cols-2 gap-6 max-w-2xl mx-auto">
-                                <div className="bg-neutral-100 dark:bg-neutral-900 p-2 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg">
-                                    <img src="/assets/screenshots/Auto Stacks.png" alt="Auto Stacking" className="w-full h-auto rounded-lg" />
-                                </div>
-                                <div className="bg-neutral-100 dark:bg-neutral-900 p-2 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg">
-                                    <img src="/assets/screenshots/Stack Photos.png" alt="Stack Management" className="w-full h-auto rounded-lg" />
-                                </div>
+                            <div className="max-w-2xl mx-auto p-2 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-xl">
+                                <img src="/assets/screenshots/Auto Stacks.png" alt="Auto Stacking" className="w-full h-auto rounded-2xl" />
                             </div>
                         </section>
 
@@ -307,20 +302,32 @@ export function DocsPage() {
                             
                             <h3 className="text-2xl font-black tracking-tight mb-6 text-neutral-900 dark:text-white">Exposure Analytical Tool</h3>
                             <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400 mb-8">
-                                Press <kbd className="font-bold">E</kbd> to cycle through professional exposure overlays. These tools help you detect clipping instantly without looking at a histogram.
+                                Press <kbd className="font-bold">E</kbd> to cycle through professional exposure overlays. This helps you detect technical flaws instantly without looking at a histogram.
                             </p>
-                            <div className="grid grid-cols-2 gap-6 mb-12">
-                                <div className="bg-neutral-100 dark:bg-neutral-900 p-2 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg">
-                                    <img src="/assets/screenshots/Exposure Highlight.png" alt="Highlight Clipping" className="w-full h-auto rounded-lg" />
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                                <div className="space-y-4">
+                                    <div className="bg-neutral-100 dark:bg-neutral-900 p-2 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg">
+                                        <img src="/assets/screenshots/Exposure Highlight.png" alt="Highlight Clipping" className="w-full h-auto rounded-lg" />
+                                    </div>
+                                    <p className="text-xs text-center font-bold text-neutral-500">1st Press: Highlights</p>
                                 </div>
-                                <div className="bg-neutral-100 dark:bg-neutral-900 p-2 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg">
-                                    <img src="/assets/screenshots/Exposure Shadow.png" alt="Shadow Clipping" className="w-full h-auto rounded-lg" />
+                                <div className="space-y-4">
+                                    <div className="bg-neutral-100 dark:bg-neutral-900 p-2 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg">
+                                        <img src="/assets/screenshots/Exposure Shadow.png" alt="Shadow Clipping" className="w-full h-auto rounded-lg" />
+                                    </div>
+                                    <p className="text-xs text-center font-bold text-neutral-500">2nd Press: Shadows</p>
+                                </div>
+                                <div className="space-y-4">
+                                    <div className="bg-neutral-100 dark:bg-neutral-900 p-2 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg">
+                                        <img src="/assets/screenshots/Exposure Highlight and Shadow.png" alt="Highlight and Shadow Clipping" className="w-full h-auto rounded-lg" />
+                                    </div>
+                                    <p className="text-xs text-center font-bold text-neutral-500">3rd Press: Both</p>
                                 </div>
                             </div>
 
                             <h3 className="text-2xl font-black tracking-tight mb-6 text-neutral-900 dark:text-white">Focus Peaking</h3>
                             <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400 mb-8">
-                                Verify sharpness at a glance. High-contrast edges are highlighted in bright colors, showing you exactly where the focal plane lies without needing to zoom in 100%.
+                                Verify sharpness at a glance using the <kbd className="font-bold">P</kbd> key or the peaking button. High-contrast edges are highlighted in bright colors, showing you exactly where the focal plane lies.
                             </p>
                             <div className="rounded-3xl overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-2xl mb-16">
                                 <img src="/assets/screenshots/Focus Peaking.png" alt="Focus Peaking Tool" className="w-full h-auto" />
@@ -328,7 +335,7 @@ export function DocsPage() {
 
                             <h3 className="text-2xl font-black tracking-tight mb-6 text-neutral-900 dark:text-white">AI Face Detection</h3>
                             <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400 mb-8">
-                                The "Facestrip" is a SnapCuller exclusive. Our local AI detects every face in the image and displays them as crops in a dedicated panel. Click a face to instantly zoom the main view.
+                                The "Facestrip" is a SnapCuller exclusive. Toggle it using the <kbd className="font-bold">F</kbd> key. Our local AI detects every face and displays them as crops in a dedicated panel.
                             </p>
                             <div className="rounded-3xl overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-2xl">
                                 <img src="/assets/screenshots/AI Powered Face Detection.png" alt="AI Facestrip" className="w-full h-auto" />
@@ -352,11 +359,11 @@ export function DocsPage() {
                             <ul className="grid md:grid-cols-2 gap-6 mb-12 list-none p-0">
                                 <li className="p-6 rounded-2xl bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800 flex gap-4">
                                     <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                                    <p className="text-sm m-0"><strong>Zoom Sync:</strong> Lock panels to zoom and pan in unison across all compared images.</p>
+                                    <p className="text-sm m-0"><strong>Activation:</strong> Select multiple images and press <kbd className="font-black">C</kbd> to enter comparison mode.</p>
                                 </li>
                                 <li className="p-6 rounded-2xl bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800 flex gap-4">
                                     <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                                    <p className="text-sm m-0"><strong>Multi-Select:</strong> Compare up to 4 images at once to pick the absolute winner.</p>
+                                    <p className="text-sm m-0"><strong>Zoom Sync:</strong> Lock panels to pan and zoom in unison across all compared images.</p>
                                 </li>
                             </ul>
                             <div className="rounded-3xl overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-2xl">
@@ -382,16 +389,16 @@ export function DocsPage() {
                             <div className="grid md:grid-cols-2 gap-12 mb-16">
                                 <div>
                                     <h4 className="text-xl font-bold mb-4 text-neutral-900 dark:text-white">Single Image Editor</h4>
-                                    <p className="text-sm leading-relaxed text-neutral-500 dark:text-neutral-400 mb-6">Edit titles, descriptions, and tags for individual images directly in the metadata panel.</p>
+                                    <p className="text-sm leading-relaxed text-neutral-500 dark:text-neutral-400 mb-6">Edit titles and tags for individual images directly in the <strong className="text-primary">EXIF Info</strong> panel or via the <kbd className="font-bold">I</kbd> key.</p>
                                     <div className="p-2 bg-neutral-100 dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg">
                                         <img src="/assets/screenshots/IPTC Editor Single.png" alt="Single IPTC Editor" className="w-full h-auto rounded-lg" />
                                     </div>
                                 </div>
                                 <div>
                                     <h4 className="text-xl font-bold mb-4 text-neutral-900 dark:text-white">Batch IPTC Editor</h4>
-                                    <p className="text-sm leading-relaxed text-neutral-500 dark:text-neutral-400 mb-6">Apply global metadata (copyright, shoot info) to thousands of photos in one action.</p>
+                                    <p className="text-sm leading-relaxed text-neutral-500 dark:text-neutral-400 mb-6">Enter Grid View (<kbd className="font-bold">G</kbd>), select multiple images, and click <strong className="text-primary">EDIT IPTC</strong> or press <kbd className="font-bold">I</kbd>.</p>
                                     <div className="p-2 bg-neutral-100 dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg">
-                                        <img src="/assets/screenshots/IPTC Metadata Batch Editor.png" alt="Batch IPTC Editor" className="w-full h-auto rounded-lg" />
+                                        <img src="/assets/screenshots/Multi IPTC Editor.png" alt="Batch IPTC Editor" className="w-full h-auto rounded-lg" />
                                     </div>
                                 </div>
                             </div>
@@ -421,10 +428,30 @@ export function DocsPage() {
                             
                             <div className="space-y-20">
                                 <div>
-                                    <h3 className="text-2xl font-black mb-6 text-neutral-900 dark:text-white">Code Replacements</h3>
+                                    <h3 className="text-2xl font-black mb-6 text-neutral-900 dark:text-white">Codes & Variables</h3>
                                     <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400 mb-8">
-                                        Stop typing repetitive text. Use short codes (e.g., <code>=h1=</code>) that instantly expand into complex strings. Perfect for sports or event photographers handling large rosters.
+                                        Stop typing repetitive text. Export templates to <strong className="text-primary">TSV format</strong> to manage large datasets in Excel/Spreadsheets, then import them back for instant use.
                                     </p>
+                                    
+                                    <div className="grid md:grid-cols-2 gap-8 mb-12">
+                                        <div className="p-6 rounded-2xl bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800">
+                                            <h4 className="font-bold mb-3">Basic Codes</h4>
+                                            <p className="text-sm text-neutral-500">Type <code>=code=</code> in any IPTC field to instantly expand it to its defined replacement.</p>
+                                        </div>
+                                        <div className="p-6 rounded-2xl bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800">
+                                            <h4 className="font-bold mb-3">Multi-column TSV</h4>
+                                            <p className="text-sm text-neutral-500">Use <code>=code=2</code> to extract the 2nd column from your imported TSV template.</p>
+                                        </div>
+                                        <div className="p-6 rounded-2xl bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800">
+                                            <h4 className="font-bold mb-3">EXIF Variables</h4>
+                                            <p className="text-sm text-neutral-500">Use <code>&#123;model&#125;</code>, <code>&#123;lens&#125;</code>, <code>&#123;iso&#125;</code>, <code>&#123;filename&#125;</code>, or <code>&#123;date&#125;</code>.</p>
+                                        </div>
+                                        <div className="p-6 rounded-2xl bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800">
+                                            <h4 className="font-bold mb-3">Sequential Batching</h4>
+                                            <p className="text-sm text-neutral-500">Use <code>&#123;seq&#125;</code> in templates to automatically pad numbers (001, 002...) for multiple photos.</p>
+                                        </div>
+                                    </div>
+
                                     <div className="max-w-2xl mx-auto p-2 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-xl">
                                         <img src="/assets/screenshots/Code Replacements.png" alt="Code Replacement Dictionary" className="w-full h-auto rounded-2xl" />
                                     </div>
@@ -470,6 +497,7 @@ export function DocsPage() {
                             <div className="grid md:grid-cols-2 gap-12 mb-16">
                                 <div>
                                     <h4 className="text-xl font-bold mb-6 text-neutral-900 dark:text-white">Keyboard Remapping</h4>
+                                    <p className="text-sm leading-relaxed text-neutral-500 dark:text-neutral-400 mb-6">Every single key can be remapped to perfectly match your existing <strong>muscle memory</strong> from other software.</p>
                                     <div className="p-2 bg-neutral-100 dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg">
                                         <img src="/assets/screenshots/Settings Keyboard.png" alt="Keyboard Shortcuts" className="w-full h-auto rounded-lg" />
                                     </div>
