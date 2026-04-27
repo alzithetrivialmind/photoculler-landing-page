@@ -569,6 +569,7 @@ export function DocsPage() {
 
                 </div>
             </div>
-        </Layout>
+        </div>
+    </Layout>
     )
 }
