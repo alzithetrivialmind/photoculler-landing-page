@@ -1,4 +1,4 @@
-import { ArrowDown, Apple, Monitor, Zap, Users, Shield } from "lucide-react"
+import { Apple, Monitor, Zap, Users, Shield } from "lucide-react"
 import { useState, useEffect } from "react"
 import { detectOS, type OS } from "../utils/os"
 

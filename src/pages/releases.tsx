@@ -52,6 +52,44 @@ const releases = [
         date: "2026-04-27",
         latest: false,
         sections: [
+            {
+                title: "What's New",
+                icon: Rocket,
+                items: [
+                    {
+                        label: "Comprehensive Documentation",
+                        description: "A complete rewrite of the user guide and landing page documentation, featuring 9 chapters of detailed workflow recipes and professional troubleshooting.",
+                    },
+                    {
+                        label: "Selective RAW Keeping",
+                        description: "Save massive disk space by automatically filtering out RAW files for lower-rated photos during export while keeping both for your 'keepers'.",
+                    },
+                    {
+                        label: "IPTC Template Workflow",
+                        description: "Refined naming conventions in the sidebar to better distinguish template creation from per-image editing.",
+                    },
+                ],
+            },
+            {
+                title: "Improvements & Fixes",
+                icon: Sparkles,
+                items: [
+                    {
+                        label: "Stable Image Pairing",
+                        description: "Fixed sorting inconsistencies when toggling RAW+JPG pairing; gallery results now strictly maintain their original folder index.",
+                    },
+                    {
+                        label: "Adaptive UI Logic",
+                        description: "Intelligently hides redundant tools like the sidebar filter in grid view or the IPTC button during multi-select for a cleaner workspace.",
+                    },
+                    {
+                        label: "Premium UI Refinements",
+                        description: "Standardized all sidebar UI elements and micro-alignments for a more cohesive and professional user experience.",
+                    },
+                ],
+            },
+        ],
+    },
     {
         version: "1.2.0",
         date: "2026-04-26",

@@ -18,13 +18,9 @@ import {
     AlertCircle,
     ArrowRight,
     Search,
-    Filter,
-    RotateCw,
-    Palette,
     X,
     ChevronLeft,
     ChevronRight,
-    List
 } from "lucide-react"
 
 const DOC_IMAGES = [
@@ -76,7 +72,6 @@ const docSections = [
 export function DocsPage() {
     const [activeSection, setActiveSection] = useState("philosophy")
     const [selectedImage, setSelectedImage] = useState<{ src: string, alt: string } | null>(null)
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
     const handleNext = () => {
         if (!selectedImage) return
