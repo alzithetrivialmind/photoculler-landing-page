@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { SEO } from "@/components/seo"
 import Layout from "@/components/layout"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { 
     LayoutDashboard, 
     Focus, 
@@ -17,8 +17,47 @@ import {
     Info,
     AlertCircle,
     ArrowRight,
-    Search
+    Search,
+    Filter,
+    RotateCw,
+    Palette,
+    X,
+    ChevronLeft,
+    ChevronRight,
+    List
 } from "lucide-react"
+
+const DOC_IMAGES = [
+    { src: "/assets/screenshots/Viewport (Center).png", alt: "SnapCuller Interface Overview" },
+    { src: "/assets/screenshots/Open Folder Button.png", alt: "Open Folder Button" },
+    { src: "/assets/screenshots/Sidebar (Left).png", alt: "Sidebar Navigation" },
+    { src: "/assets/screenshots/Progress Bar.png", alt: "Culling Progress Bar" },
+    { src: "/assets/screenshots/Filmstrip (Bottom).png", alt: "Filmstrip" },
+    { src: "/assets/screenshots/Metadata Panel (Sidebar Bottom).png", alt: "Metadata Panel" },
+    { src: "/assets/screenshots/Grid View.png", alt: "Grid View Library" },
+    { src: "/assets/screenshots/Grouping.png", alt: "Grouping Options" },
+    { src: "/assets/screenshots/Advanced Filtering.png", alt: "Advanced Filter Panel" },
+    { src: "/assets/screenshots/Auto Stacks.png", alt: "Auto Stacking" },
+    { src: "/assets/screenshots/Exposure Highlight.png", alt: "Highlight Clipping" },
+    { src: "/assets/screenshots/Exposure Shadow.png", alt: "Shadow Clipping" },
+    { src: "/assets/screenshots/Exposure Highlight and Shadow.png", alt: "Highlight and Shadow Clipping" },
+    { src: "/assets/screenshots/Focus Peaking.png", alt: "Focus Peaking Tool" },
+    { src: "/assets/screenshots/AI Powered Face Detection.png", alt: "AI Facestrip" },
+    { src: "/assets/screenshots/Before Rotate.png", alt: "Before Rotation" },
+    { src: "/assets/screenshots/After Rotate.png", alt: "After Rotation" },
+    { src: "/assets/screenshots/Compare View or Side by Side view zoom sync.png", alt: "Compare Mode Side-by-Side" },
+    { src: "/assets/screenshots/IPTC Editor Single.png", alt: "Single IPTC Editor" },
+    { src: "/assets/screenshots/Multi IPTC Editor.png", alt: "Batch IPTC Editor" },
+    { src: "/assets/screenshots/Code Replacements.png", alt: "Code Replacement Dictionary" },
+    { src: "/assets/screenshots/Batch Rename New.png", alt: "Batch Renaming Tool" },
+    { src: "/assets/screenshots/Bucket For Move or Copy Pictures.png", alt: "Bucket Configuration" },
+    { src: "/assets/screenshots/Professional Export Selected Photos.png", alt: "Export Dialog" },
+    { src: "/assets/screenshots/Settings Keyboard.png", alt: "Keyboard Shortcuts" },
+    { src: "/assets/screenshots/Settings Gamepad.png", alt: "Gamepad Configuration" },
+    { src: "/assets/screenshots/Appearance Setting (Visual Themes).png", alt: "Visual Themes" },
+    { src: "/assets/screenshots/External Editors.png", alt: "External Editor Settings" },
+    { src: "/assets/screenshots/License Management.png", alt: "License Manager" }
+]
 
 const docSections = [
     { id: "philosophy", title: "Philosophy", icon: LayoutDashboard },
@@ -36,6 +75,41 @@ const docSections = [
 
 export function DocsPage() {
     const [activeSection, setActiveSection] = useState("philosophy")
+    const [selectedImage, setSelectedImage] = useState<{ src: string, alt: string } | null>(null)
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+    const handleNext = () => {
+        if (!selectedImage) return
+        const currentIndex = DOC_IMAGES.findIndex(img => img.src === selectedImage.src)
+        const nextIdx = (currentIndex + 1) % DOC_IMAGES.length
+        setSelectedImage(DOC_IMAGES[nextIdx])
+    }
+
+    const handlePrev = () => {
+        if (!selectedImage) return
+        const currentIndex = DOC_IMAGES.findIndex(img => img.src === selectedImage.src)
+        const prevIdx = (currentIndex - 1 + DOC_IMAGES.length) % DOC_IMAGES.length
+        setSelectedImage(DOC_IMAGES[prevIdx])
+    }
+
+    // Handle Keyboard events
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Escape") setSelectedImage(null)
+            if (e.key === "ArrowRight") handleNext()
+            if (e.key === "ArrowLeft") handlePrev()
+        }
+        if (selectedImage) {
+            window.addEventListener("keydown", handleKeyDown)
+            document.body.style.overflow = "hidden"
+        } else {
+            document.body.style.overflow = "unset"
+        }
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown)
+            document.body.style.overflow = "unset"
+        }
+    }, [selectedImage])
 
     useEffect(() => {
         const options = {
@@ -74,7 +148,7 @@ export function DocsPage() {
                 description="The definitive guide to mastering SnapCuller. Learn about high-speed culling, AI face detection, metadata management, and professional workflows." 
             />
             
-            <div className="pt-40 pb-20">
+            <div className="">
                 <div className="container mx-auto px-4 max-w-7xl">
                 {/* Header */}
                 <header className="mb-16 border-b border-neutral-200 dark:border-neutral-800 pb-12 pt-8">
@@ -99,7 +173,7 @@ export function DocsPage() {
 
                 <div className="flex flex-col lg:flex-row gap-16 items-start">
                     {/* Sidebar Navigation */}
-                    <aside className="lg:w-72 shrink-0 sticky top-28 self-start">
+                    <aside className="hidden lg:block lg:w-72 shrink-0 sticky top-28 self-start">
                         <div className="space-y-6">
                             <div className="p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800 mb-6">
                                 <h3 className="font-black text-xs uppercase tracking-widest mb-4 text-neutral-900 dark:text-white px-2">Table of Contents</h3>
@@ -167,7 +241,8 @@ export function DocsPage() {
                                 <img 
                                     src="/assets/screenshots/Viewport (Center).png" 
                                     alt="SnapCuller Interface Overview" 
-                                    className="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity" 
+                                    className="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity cursor-zoom-in" 
+                                    onClick={() => setSelectedImage({ src: "/assets/screenshots/Viewport (Center).png", alt: "SnapCuller Interface Overview" })}
                                 />
                             </div>
                         </section>
@@ -199,7 +274,10 @@ export function DocsPage() {
                                 </div>
                             </div>
 
-                            <div className="max-w-md mx-auto mb-12 p-4 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-xl">
+                            <div 
+                                className="max-w-md mx-auto mb-12 p-4 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-xl cursor-zoom-in hover:scale-[1.02] transition-transform"
+                                onClick={() => setSelectedImage({ src: "/assets/screenshots/Open Folder Button.png", alt: "Open Folder Button" })}
+                            >
                                 <img src="/assets/screenshots/Open Folder Button.png" alt="Open Folder Button" className="w-full h-auto rounded-xl" />
                             </div>
 
@@ -231,15 +309,27 @@ export function DocsPage() {
                                     <div className="flex-1 pt-4">
                                         <h4 className="text-xl font-black mb-4 text-neutral-900 dark:text-white">1. Sidebar Navigation</h4>
                                         <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
-                                            Your command center for folder management, batch renaming, IPTC templates, and workflow presets. It's designed to be pinned or auto-hidden to maximize screen real estate.
+                                            Your command center for folder management, batch renaming, IPTC templates, and workflow presets. It includes a <strong>Progress Bar</strong> to track your culling completion and percentages in real-time.
                                         </p>
                                     </div>
-                                    <div className="w-full md:w-48 shrink-0 bg-neutral-100 dark:bg-neutral-900 p-2 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-xl">
-                                        <img 
-                                            src="/assets/screenshots/Sidebar (Left).png" 
-                                            alt="Sidebar Navigation" 
-                                            className="w-full h-auto max-h-[400px] object-contain rounded-lg mx-auto" 
-                                        />
+                                    <div className="w-full md:w-64 shrink-0 space-y-4">
+                                        <div 
+                                            className="bg-neutral-100 dark:bg-neutral-900 p-2 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-xl cursor-zoom-in hover:scale-[1.02] transition-transform"
+                                            onClick={() => setSelectedImage({ src: "/assets/screenshots/Sidebar (Left).png", alt: "Sidebar Navigation" })}
+                                        >
+                                            <img 
+                                                src="/assets/screenshots/Sidebar (Left).png" 
+                                                alt="Sidebar Navigation" 
+                                                className="w-full h-auto rounded-lg" 
+                                            />
+                                        </div>
+                                        <div 
+                                            className="bg-neutral-100 dark:bg-neutral-900 p-2 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg cursor-zoom-in hover:scale-[1.02] transition-transform"
+                                            onClick={() => setSelectedImage({ src: "/assets/screenshots/Progress Bar.png", alt: "Culling Progress Bar" })}
+                                        >
+                                            <img src="/assets/screenshots/Progress Bar.png" alt="Culling Progress Bar" className="w-full h-auto rounded-lg" />
+                                            <p className="text-[10px] text-center font-bold text-neutral-500 mt-2">Close-up: Progress indicator</p>
+                                        </div>
                                     </div>
                                 </div>
                                 
@@ -251,10 +341,16 @@ export function DocsPage() {
                                         </p>
                                     </div>
                                     <div className="w-full md:w-80 shrink-0 space-y-4">
-                                        <div className="bg-neutral-100 dark:bg-neutral-900 p-2 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg">
+                                        <div 
+                                            className="bg-neutral-100 dark:bg-neutral-900 p-2 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg cursor-zoom-in hover:scale-[1.02] transition-transform"
+                                            onClick={() => setSelectedImage({ src: "/assets/screenshots/Filmstrip (Bottom).png", alt: "Filmstrip" })}
+                                        >
                                             <img src="/assets/screenshots/Filmstrip (Bottom).png" alt="Filmstrip" className="w-full h-auto rounded-lg" />
                                         </div>
-                                        <div className="bg-neutral-100 dark:bg-neutral-900 p-2 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg">
+                                        <div 
+                                            className="bg-neutral-100 dark:bg-neutral-900 p-2 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg cursor-zoom-in hover:scale-[1.02] transition-transform"
+                                            onClick={() => setSelectedImage({ src: "/assets/screenshots/Metadata Panel (Sidebar Bottom).png", alt: "Metadata Panel" })}
+                                        >
                                             <img src="/assets/screenshots/Metadata Panel (Sidebar Bottom).png" alt="Metadata Panel" className="w-full h-auto rounded-lg" />
                                         </div>
                                     </div>
@@ -277,7 +373,10 @@ export function DocsPage() {
                                 The Grid View provides a bird's-eye view of your entire shoot. It is built using a highly optimized virtualization engine that can render 50,000+ thumbnails without skipping a frame.
                             </p>
                             
-                            <div className="rounded-3xl overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-2xl mb-12">
+                            <div 
+                                className="rounded-3xl overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-2xl mb-12 cursor-zoom-in hover:opacity-95 transition-opacity"
+                                onClick={() => setSelectedImage({ src: "/assets/screenshots/Grid View.png", alt: "Grid View Library" })}
+                            >
                                 <img src="/assets/screenshots/Grid View.png" alt="Grid View Library" className="w-full h-auto" />
                             </div>
 
@@ -285,8 +384,22 @@ export function DocsPage() {
                             <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400 mb-10">
                                 Tame large shoots by grouping your photos by <strong>Date</strong>, <strong>Camera</strong>, <strong>Lens</strong>, or <strong>ISO</strong>. This is invaluable for separating different segments of an event (e.g., "Ceremony" from "Reception") based on capture time or camera body.
                             </p>
-                            <div className="max-w-2xl mx-auto mb-16 p-2 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-xl">
+                            <div 
+                                className="max-w-2xl mx-auto mb-16 p-2 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-xl cursor-zoom-in hover:scale-[1.02] transition-transform"
+                                onClick={() => setSelectedImage({ src: "/assets/screenshots/Grouping.png", alt: "Grouping Options" })}
+                            >
                                 <img src="/assets/screenshots/Grouping.png" alt="Grouping Options" className="w-full h-auto rounded-2xl" />
+                            </div>
+
+                            <h3 className="text-2xl font-black tracking-tight mb-6 text-neutral-900 dark:text-white">Advanced Filtering</h3>
+                            <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400 mb-10">
+                                Beyond grouping, use the <strong>Advanced Filter</strong> to drill down into your shoot. Filter by star ratings, color labels, or technical EXIF data including specific <strong>ISO ranges, Lens models, and Camera bodies</strong>.
+                            </p>
+                            <div 
+                                className="max-w-2xl mx-auto mb-16 p-2 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-xl cursor-zoom-in hover:scale-[1.02] transition-transform"
+                                onClick={() => setSelectedImage({ src: "/assets/screenshots/Advanced Filtering.png", alt: "Advanced Filter Panel" })}
+                            >
+                                <img src="/assets/screenshots/Advanced Filtering.png" alt="Advanced Filter Panel" className="w-full h-auto rounded-2xl" />
                             </div>
 
                             <h3 className="text-2xl font-black tracking-tight mb-6 text-neutral-900 dark:text-white">Image Pairing & Burst Stacks</h3>
@@ -304,7 +417,10 @@ export function DocsPage() {
                                     </p>
                                 </div>
                             </div>
-                            <div className="max-w-2xl mx-auto p-2 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-xl">
+                            <div 
+                                className="max-w-2xl mx-auto p-2 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-xl cursor-zoom-in hover:scale-[1.02] transition-transform"
+                                onClick={() => setSelectedImage({ src: "/assets/screenshots/Auto Stacks.png", alt: "Auto Stacking" })}
+                            >
                                 <img src="/assets/screenshots/Auto Stacks.png" alt="Auto Stacking" className="w-full h-auto rounded-2xl" />
                             </div>
                         </section>
@@ -330,19 +446,28 @@ export function DocsPage() {
                             </p>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
                                 <div className="space-y-4">
-                                    <div className="bg-neutral-100 dark:bg-neutral-900 p-2 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg">
+                                    <div 
+                                        className="bg-neutral-100 dark:bg-neutral-900 p-2 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg cursor-zoom-in hover:scale-[1.02] transition-transform"
+                                        onClick={() => setSelectedImage({ src: "/assets/screenshots/Exposure Highlight.png", alt: "Highlight Clipping" })}
+                                    >
                                         <img src="/assets/screenshots/Exposure Highlight.png" alt="Highlight Clipping" className="w-full h-auto rounded-lg" />
                                     </div>
                                     <p className="text-xs text-center font-bold text-neutral-500">1st Press: Highlights</p>
                                 </div>
                                 <div className="space-y-4">
-                                    <div className="bg-neutral-100 dark:bg-neutral-900 p-2 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg">
+                                    <div 
+                                        className="bg-neutral-100 dark:bg-neutral-900 p-2 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg cursor-zoom-in hover:scale-[1.02] transition-transform"
+                                        onClick={() => setSelectedImage({ src: "/assets/screenshots/Exposure Shadow.png", alt: "Shadow Clipping" })}
+                                    >
                                         <img src="/assets/screenshots/Exposure Shadow.png" alt="Shadow Clipping" className="w-full h-auto rounded-lg" />
                                     </div>
                                     <p className="text-xs text-center font-bold text-neutral-500">2nd Press: Shadows</p>
                                 </div>
                                 <div className="space-y-4">
-                                    <div className="bg-neutral-100 dark:bg-neutral-900 p-2 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg">
+                                    <div 
+                                        className="bg-neutral-100 dark:bg-neutral-900 p-2 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg cursor-zoom-in hover:scale-[1.02] transition-transform"
+                                        onClick={() => setSelectedImage({ src: "/assets/screenshots/Exposure Highlight and Shadow.png", alt: "Highlight and Shadow Clipping" })}
+                                    >
                                         <img src="/assets/screenshots/Exposure Highlight and Shadow.png" alt="Highlight and Shadow Clipping" className="w-full h-auto rounded-lg" />
                                     </div>
                                     <p className="text-xs text-center font-bold text-neutral-500">3rd Press: Both</p>
@@ -353,7 +478,10 @@ export function DocsPage() {
                             <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400 mb-8">
                                 Verify sharpness at a glance using the <kbd className="font-bold">P</kbd> key or the peaking button. High-contrast edges are highlighted in bright colors, showing you exactly where the focal plane lies.
                             </p>
-                            <div className="rounded-3xl overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-2xl mb-16">
+                            <div 
+                                className="rounded-3xl overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-2xl mb-16 cursor-zoom-in hover:opacity-95 transition-opacity"
+                                onClick={() => setSelectedImage({ src: "/assets/screenshots/Focus Peaking.png", alt: "Focus Peaking Tool" })}
+                            >
                                 <img src="/assets/screenshots/Focus Peaking.png" alt="Focus Peaking Tool" className="w-full h-auto" />
                             </div>
 
@@ -361,8 +489,36 @@ export function DocsPage() {
                             <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400 mb-8">
                                 The "Facestrip" is a SnapCuller exclusive. Toggle it using the <kbd className="font-bold">F</kbd> key. Our local AI detects every face and displays them as crops in a dedicated panel.
                             </p>
-                            <div className="rounded-3xl overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-2xl">
+                            <div 
+                                className="rounded-3xl overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-2xl mb-16 cursor-zoom-in hover:opacity-95 transition-opacity"
+                                onClick={() => setSelectedImage({ src: "/assets/screenshots/AI Powered Face Detection.png", alt: "AI Facestrip" })}
+                            >
                                 <img src="/assets/screenshots/AI Powered Face Detection.png" alt="AI Facestrip" className="w-full h-auto" />
+                            </div>
+
+                            <h3 className="text-2xl font-black tracking-tight mb-6 text-neutral-900 dark:text-white">Image Orientation</h3>
+                            <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400 mb-8">
+                                Fix orientation issues instantly. Use the rotation tool to correct portrait shots that appear landscape or to creatively re-orient your frames without leaving the review screen.
+                            </p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                                <div className="space-y-4">
+                                    <div 
+                                        className="bg-neutral-100 dark:bg-neutral-900 p-2 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg cursor-zoom-in hover:scale-[1.02] transition-transform"
+                                        onClick={() => setSelectedImage({ src: "/assets/screenshots/Before Rotate.png", alt: "Before Rotation" })}
+                                    >
+                                        <img src="/assets/screenshots/Before Rotate.png" alt="Before Rotation" className="w-full h-auto rounded-lg" />
+                                    </div>
+                                    <p className="text-xs text-center font-bold text-neutral-500">Before correction</p>
+                                </div>
+                                <div className="space-y-4">
+                                    <div 
+                                        className="bg-neutral-100 dark:bg-neutral-900 p-2 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg cursor-zoom-in hover:scale-[1.02] transition-transform"
+                                        onClick={() => setSelectedImage({ src: "/assets/screenshots/After Rotate.png", alt: "After Rotation" })}
+                                    >
+                                        <img src="/assets/screenshots/After Rotate.png" alt="After Rotation" className="w-full h-auto rounded-lg" />
+                                    </div>
+                                    <p className="text-xs text-center font-bold text-neutral-500">After correction</p>
+                                </div>
                             </div>
                         </section>
 
@@ -390,7 +546,10 @@ export function DocsPage() {
                                     <p className="text-sm m-0"><strong>Zoom Sync:</strong> Lock panels to pan and zoom in unison across all compared images.</p>
                                 </li>
                             </ul>
-                            <div className="rounded-3xl overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-2xl">
+                            <div 
+                                className="rounded-3xl overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-2xl cursor-zoom-in hover:opacity-95 transition-opacity"
+                                onClick={() => setSelectedImage({ src: "/assets/screenshots/Compare View or Side by Side view zoom sync.png", alt: "Compare Mode Side-by-Side" })}
+                            >
                                 <img src="/assets/screenshots/Compare View or Side by Side view zoom sync.png" alt="Compare Mode Side-by-Side" className="w-full h-auto" />
                             </div>
                         </section>
@@ -414,14 +573,20 @@ export function DocsPage() {
                                 <div>
                                     <h4 className="text-xl font-bold mb-4 text-neutral-900 dark:text-white">Single Image Editor</h4>
                                     <p className="text-sm leading-relaxed text-neutral-500 dark:text-neutral-400 mb-6">Edit titles and tags for individual images directly in the <strong className="text-primary">EXIF Info</strong> panel or via the <kbd className="font-bold">I</kbd> key.</p>
-                                    <div className="p-2 bg-neutral-100 dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg">
+                                    <div 
+                                        className="p-2 bg-neutral-100 dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg cursor-zoom-in hover:scale-[1.02] transition-transform"
+                                        onClick={() => setSelectedImage({ src: "/assets/screenshots/IPTC Editor Single.png", alt: "Single IPTC Editor" })}
+                                    >
                                         <img src="/assets/screenshots/IPTC Editor Single.png" alt="Single IPTC Editor" className="w-full h-auto rounded-lg" />
                                     </div>
                                 </div>
                                 <div>
                                     <h4 className="text-xl font-bold mb-4 text-neutral-900 dark:text-white">Batch IPTC Editor</h4>
                                     <p className="text-sm leading-relaxed text-neutral-500 dark:text-neutral-400 mb-6">Enter Grid View (<kbd className="font-bold">G</kbd>), select multiple images, and click <strong className="text-primary">EDIT IPTC</strong> or press <kbd className="font-bold">I</kbd>.</p>
-                                    <div className="p-2 bg-neutral-100 dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg">
+                                    <div 
+                                        className="p-2 bg-neutral-100 dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg cursor-zoom-in hover:scale-[1.02] transition-transform"
+                                        onClick={() => setSelectedImage({ src: "/assets/screenshots/Multi IPTC Editor.png", alt: "Batch IPTC Editor" })}
+                                    >
                                         <img src="/assets/screenshots/Multi IPTC Editor.png" alt="Batch IPTC Editor" className="w-full h-auto rounded-lg" />
                                     </div>
                                 </div>
@@ -476,7 +641,10 @@ export function DocsPage() {
                                         </div>
                                     </div>
 
-                                    <div className="max-w-2xl mx-auto p-2 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-xl">
+                                    <div 
+                                        className="max-w-2xl mx-auto p-2 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-xl cursor-zoom-in hover:scale-[1.02] transition-transform"
+                                        onClick={() => setSelectedImage({ src: "/assets/screenshots/Code Replacements.png", alt: "Code Replacement Dictionary" })}
+                                    >
                                         <img src="/assets/screenshots/Code Replacements.png" alt="Code Replacement Dictionary" className="w-full h-auto rounded-2xl" />
                                     </div>
                                 </div>
@@ -486,7 +654,10 @@ export function DocsPage() {
                                     <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400 mb-8">
                                         Standardize your filenames before delivery. Use dynamic variables like <code>&#123;Date&#125;</code>, <code>&#123;Project&#125;</code>, and <code>&#123;Counter&#125;</code>.
                                     </p>
-                                    <div className="max-w-2xl mx-auto p-2 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-xl">
+                                    <div 
+                                        className="max-w-2xl mx-auto p-2 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-xl cursor-zoom-in hover:scale-[1.02] transition-transform"
+                                        onClick={() => setSelectedImage({ src: "/assets/screenshots/Batch Rename New.png", alt: "Batch Renaming Tool" })}
+                                    >
                                         <img src="/assets/screenshots/Batch Rename New.png" alt="Batch Renaming Tool" className="w-full h-auto rounded-2xl" />
                                     </div>
                                 </div>
@@ -496,30 +667,48 @@ export function DocsPage() {
                                     <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400 mb-8">
                                         Buckets are the ultimate culling shortcut. Map a key (e.g., <kbd className="font-black">1</kbd>) to a "Picks" folder. Pressing that key instantly moves the file and sidecars to the destination.
                                     </p>
-                                    <div className="max-w-xl mx-auto p-2 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-xl">
+                                    <div 
+                                        className="max-w-xl mx-auto p-2 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-xl cursor-zoom-in hover:scale-[1.02] transition-transform"
+                                        onClick={() => setSelectedImage({ src: "/assets/screenshots/Bucket For Move or Copy Pictures.png", alt: "Bucket Configuration" })}
+                                    >
                                         <img src="/assets/screenshots/Bucket For Move or Copy Pictures.png" alt="Bucket Configuration" className="w-full h-auto rounded-2xl" />
                                     </div>
                                 </div>
 
                                 <div className="p-8 rounded-3xl bg-primary/5 border border-primary/20 shadow-sm">
-                                    <h3 className="text-2xl font-black mb-4 text-primary">Selective RAW Keeping</h3>
-                                    <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400 mb-6">
-                                        The ultimate storage optimization tool. Professional shoots can generate hundreds of gigabytes of RAW data. Selective RAW Keeping allows you to automate your cleanup.
+                                    <h3 className="text-2xl font-black mb-4 text-primary">Professional Export & Routing</h3>
+                                    <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400 mb-8">
+                                        SnapCuller offers granular control over how your files are moved to their next destination.
                                     </p>
-                                    <ul className="space-y-3 list-none p-0">
-                                        <li className="flex gap-3 text-sm">
-                                            <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
-                                            <span>Set a rating threshold (e.g., 4 Stars).</span>
-                                        </li>
-                                        <li className="flex gap-3 text-sm">
-                                            <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
-                                            <span>During export, SnapCuller skips the heavy RAW files for photos below that threshold.</span>
-                                        </li>
-                                        <li className="flex gap-3 text-sm">
-                                            <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
-                                            <span>You keep a lightweight JPG archive for all shots, but only the keepers occupy your RAW storage.</span>
-                                        </li>
-                                    </ul>
+                                    
+                                    <div className="grid md:grid-cols-2 gap-12 items-center mb-10">
+                                        <ul className="space-y-4 list-none p-0">
+                                            <li className="flex gap-3 text-sm">
+                                                <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
+                                                <div>
+                                                    <strong>Subfolder Grouping:</strong> Automatically organize exports into specific folders like "Approved" or "Web Ready".
+                                                </div>
+                                            </li>
+                                            <li className="flex gap-3 text-sm">
+                                                <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
+                                                <div>
+                                                    <strong>Copy vs Move:</strong> Choose between duplicating files for safety or physically moving them to reorganize your project structure.
+                                                </div>
+                                            </li>
+                                            <li className="flex gap-3 text-sm">
+                                                <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
+                                                <div>
+                                                    <strong>Selective RAW Keeping:</strong> Automate storage optimization by only keeping RAW files for images above a certain rating threshold.
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div 
+                                            className="bg-neutral-100 dark:bg-neutral-900 p-2 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-xl cursor-zoom-in hover:scale-[1.02] transition-transform"
+                                            onClick={() => setSelectedImage({ src: "/assets/screenshots/Professional Export Selected Photos.png", alt: "Export Dialog" })}
+                                        >
+                                            <img src="/assets/screenshots/Professional Export Selected Photos.png" alt="Export Dialog" className="w-full h-auto rounded-lg" />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </section>
@@ -539,19 +728,35 @@ export function DocsPage() {
                                 SnapCuller is designed to be controlled via muscle memory. Every key is remappable, and we offer native support for gaming controllers.
                             </p>
                             
-                            <div className="grid md:grid-cols-2 gap-12 mb-16">
+                            <div className="grid md:grid-cols-3 gap-12 mb-16">
                                 <div>
                                     <h4 className="text-xl font-bold mb-6 text-neutral-900 dark:text-white">Keyboard Remapping</h4>
                                     <p className="text-sm leading-relaxed text-neutral-500 dark:text-neutral-400 mb-6">Every single key can be remapped to perfectly match your existing <strong>muscle memory</strong> from other software.</p>
-                                    <div className="p-2 bg-neutral-100 dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg">
+                                    <div 
+                                        className="p-2 bg-neutral-100 dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg cursor-zoom-in hover:scale-[1.02] transition-transform"
+                                        onClick={() => setSelectedImage({ src: "/assets/screenshots/Settings Keyboard.png", alt: "Keyboard Shortcuts" })}
+                                    >
                                         <img src="/assets/screenshots/Settings Keyboard.png" alt="Keyboard Shortcuts" className="w-full h-auto rounded-lg" />
                                     </div>
                                 </div>
                                 <div>
                                     <h4 className="text-xl font-bold mb-6 text-neutral-900 dark:text-white">Gamepad Support</h4>
                                     <p className="text-sm leading-relaxed text-neutral-500 dark:text-neutral-400 mb-6">Lean back and cull with an Xbox or PS5 controller. Use triggers for zooming and face buttons for rating.</p>
-                                    <div className="p-2 bg-neutral-100 dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg">
+                                    <div 
+                                        className="p-2 bg-neutral-100 dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg cursor-zoom-in hover:scale-[1.02] transition-transform"
+                                        onClick={() => setSelectedImage({ src: "/assets/screenshots/Settings Gamepad.png", alt: "Gamepad Configuration" })}
+                                    >
                                         <img src="/assets/screenshots/Settings Gamepad.png" alt="Gamepad Configuration" className="w-full h-auto rounded-lg" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 className="text-xl font-bold mb-6 text-neutral-900 dark:text-white">Visual Themes</h4>
+                                    <p className="text-sm leading-relaxed text-neutral-500 dark:text-neutral-400 mb-6">Personalize your workspace with visual themes designed to optimize contrast and reduce fatigue during long sessions.</p>
+                                    <div 
+                                        className="p-2 bg-neutral-100 dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg cursor-zoom-in hover:scale-[1.02] transition-transform"
+                                        onClick={() => setSelectedImage({ src: "/assets/screenshots/Appearance Setting (Visual Themes).png", alt: "Visual Themes" })}
+                                    >
+                                        <img src="/assets/screenshots/Appearance Setting (Visual Themes).png" alt="Visual Themes" className="w-full h-auto rounded-lg" />
                                     </div>
                                 </div>
                             </div>
@@ -560,7 +765,10 @@ export function DocsPage() {
                             <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400 mb-8">
                                 Link your preferred software in Settings and open the current image with a single click.
                             </p>
-                            <div className="max-w-2xl mx-auto p-2 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-xl">
+                            <div 
+                                className="max-w-2xl mx-auto p-2 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-xl cursor-zoom-in hover:scale-[1.02] transition-transform"
+                                onClick={() => setSelectedImage({ src: "/assets/screenshots/External Editors.png", alt: "External Editor Settings" })}
+                            >
                                 <img src="/assets/screenshots/External Editors.png" alt="External Editor Settings" className="w-full h-auto rounded-2xl" />
                             </div>
                         </section>
@@ -589,7 +797,10 @@ export function DocsPage() {
                                     <p className="text-sm m-0"><strong>Offline Use:</strong> Once activated, SnapCuller works entirely offline.</p>
                                 </li>
                             </ul>
-                            <div className="max-w-xl mx-auto p-2 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-xl">
+                            <div 
+                                className="max-w-xl mx-auto p-2 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-xl cursor-zoom-in hover:scale-[1.02] transition-transform"
+                                onClick={() => setSelectedImage({ src: "/assets/screenshots/License Management.png", alt: "License Manager" })}
+                            >
                                 <img src="/assets/screenshots/License Management.png" alt="License Manager" className="w-full h-auto rounded-2xl" />
                             </div>
                         </section>
@@ -642,6 +853,71 @@ export function DocsPage() {
 
                 </div>
             </div>
+
+            {/* Image Zoom Modal */}
+            <AnimatePresence>
+                {selectedImage && (
+                    <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-12 bg-black/95 backdrop-blur-md cursor-zoom-out"
+                        onClick={() => setSelectedImage(null)}
+                    >
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                            className="relative max-w-7xl w-full max-h-full flex items-center justify-center gap-4"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            {/* Navigation Buttons */}
+                            <button 
+                                className="absolute left-0 md:-left-20 top-1/2 -translate-y-1/2 p-4 bg-white/5 hover:bg-white/10 rounded-full text-white/50 hover:text-white transition-all hidden md:block"
+                                onClick={handlePrev}
+                            >
+                                <ChevronLeft className="w-8 h-8" />
+                            </button>
+
+                            <button 
+                                className="absolute right-0 md:-right-20 top-1/2 -translate-y-1/2 p-4 bg-white/5 hover:bg-white/10 rounded-full text-white/50 hover:text-white transition-all hidden md:block"
+                                onClick={handleNext}
+                            >
+                                <ChevronRight className="w-8 h-8" />
+                            </button>
+
+                            <div className="relative group flex flex-col items-center">
+                                <img 
+                                    src={selectedImage.src} 
+                                    alt={selectedImage.alt} 
+                                    className="max-w-full max-h-[80vh] object-contain rounded-2xl shadow-2xl border border-white/10"
+                                />
+                                
+                                <div className="mt-8 text-center space-y-2">
+                                    <p className="text-white text-lg font-bold">{selectedImage.alt}</p>
+                                    <p className="text-white/40 text-xs tracking-widest uppercase">
+                                        Image {DOC_IMAGES.findIndex(img => img.src === selectedImage.src) + 1} of {DOC_IMAGES.length}
+                                    </p>
+                                </div>
+
+                                {/* Mobile Tap Areas */}
+                                <div className="absolute inset-0 flex md:hidden">
+                                    <div className="w-1/2 h-full" onClick={handlePrev} />
+                                    <div className="w-1/2 h-full" onClick={handleNext} />
+                                </div>
+                            </div>
+
+                            <button 
+                                className="absolute -top-12 right-0 p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all hover:scale-110 active:scale-95 group"
+                                onClick={() => setSelectedImage(null)}
+                            >
+                                <X className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
+                            </button>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     </Layout>
     )

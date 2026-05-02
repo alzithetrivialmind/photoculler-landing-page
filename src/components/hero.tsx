@@ -1,45 +1,6 @@
 import { ArrowDown, Apple, Monitor, Zap, Users, Shield } from "lucide-react"
-import { motion, type Variants, useMotionValue, useSpring, useMotionTemplate } from "framer-motion"
 import { useState, useEffect } from "react"
 import { detectOS, type OS } from "../utils/os"
-import { Magnetic } from "./magnetic"
-import { HUDDecoration, HUDCrosshair } from "./hud-elements"
-
-// Text Reveal Component
-const Reveal = ({ children, delay = 0, className = "" }: { children: string, delay?: number, className?: string }) => {
-    const container: Variants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: { staggerChildren: 0.03, delayChildren: delay }
-        }
-    }
-
-    const child: Variants = {
-        hidden: { opacity: 0, y: 10 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.5, ease: "easeOut" }
-        }
-    }
-
-    return (
-        <motion.div
-            variants={container}
-            initial="hidden"
-            animate="visible"
-            className={`inline-block ${className}`}
-        >
-            {children.split("").map((char, index) => (
-                <motion.span variants={child} key={index} className="inline-block whitespace-pre">
-                    {char}
-                </motion.span>
-            ))}
-        </motion.div>
-    )
-}
-
 
 export function Hero() {
     const [stats, setStats] = useState<{ total_downloads: number, latest_version: string } | null>(null)
@@ -58,7 +19,7 @@ export function Hero() {
             .catch(err => console.error("Failed to fetch stats", err))
     }, [])
 
-    const displayedDownloads = stats ? stats.total_downloads + 500 : 500 // Start with a base of 500 for social proof
+    const displayedDownloads = stats ? stats.total_downloads + 500 : 500
     const versionLabel = stats?.latest_version ? `v${stats.latest_version}` : "v1.1.7"
     
     // Dynamic Download Logic
@@ -70,150 +31,58 @@ export function Hero() {
     const downloadUrl = `https://snap-culler-proxy.vercel.app/${fileName}`
     const PlatformIcon = os === 'mac' ? Apple : Monitor
 
-    // Spotlight logic
-    const mouseX = useMotionValue(0)
-    const mouseY = useMotionValue(0)
-    const springX = useSpring(mouseX, { damping: 50, stiffness: 200 })
-    const springY = useSpring(mouseY, { damping: 50, stiffness: 200 })
-
-    const handleMouseMove = (e: React.MouseEvent) => {
-        const { currentTarget, clientX, clientY } = e
-        const { left, top } = currentTarget.getBoundingClientRect()
-        mouseX.set(clientX - left)
-        mouseY.set(clientY - top)
-    }
-
     return (
-        <section 
-            onMouseMove={handleMouseMove}
-            className="group/hero relative min-h-[95vh] flex flex-col items-center justify-center overflow-hidden pt-20 bg-dot-hud"
-        >
-            <HUDDecoration />
-            
-            {/* Minimal Spotlight Effect */}
-            <motion.div
-                className="pointer-events-none absolute -inset-px opacity-0 group-hover/hero:opacity-100 transition-opacity duration-500 z-1"
-                style={{
-                    background: useMotionTemplate`radial-gradient(800px circle at ${springX}px ${springY}px, rgba(255,255,255,0.03), transparent 80%)`
-                }}
-            />
-
-
-            
-            <div className="container mx-auto px-4 text-center relative z-10 flex flex-col items-center">
-
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5 }}
-                    className="relative"
-                >
-                    <a
-                        href="/releases"
-                        className="inline-flex items-center rounded-full border border-primary/60 bg-card px-3 py-1 text-[11px] font-black uppercase tracking-wider text-primary mb-8 hover:bg-primary/10 transition-all shadow-[0_0_15px_rgba(185,124,221,0.1)] group font-urbanist"
-                    >
-                        <span className="flex h-1.5 w-1.5 rounded-full bg-primary mr-2 animate-pulse shadow-[0_0_8px_rgba(185,124,221,0.8)]"></span>
-                        {versionLabel} Released
-                        <Zap className="w-3 h-3 ml-1.5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </a>
-                </motion.div>
-
-                <div className="mb-10 max-w-5xl relative">
-                    <HUDCrosshair className="-top-12 -left-12 opacity-20" />
-                    <HUDCrosshair className="-bottom-12 -right-12 rotate-180 opacity-20" />
-                    
-                    <h1 className="text-6xl md:text-8xl lg:text-[110px] font-black tracking-tightest leading-[0.85] mb-6">
-                        <span className="sr-only">SnapCuller — The Fastest Photo Culling Software</span>
-                        <Reveal delay={0.2} className="text-foreground inline-block">
-                            Cull Photos at
-                        </Reveal>
-                        <br className="hidden md:block" />
-                        <Reveal delay={0.6} className="text-foreground dark:text-white inline-block whitespace-nowrap">
-                            Muscle Memory Speed
-                        </Reveal>
-                    </h1>
-                </div>
-
-                <motion.p
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1.0, duration: 0.6 }}
-                    className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl mx-auto mb-14 leading-relaxed font-medium"
-                >
-                    The ultra-lightweight engine to sort thousands of shots instantly. 
-                    No import lag, ultra-fast viewing, and a workflow that keeps your hands on the keyboard.
-                </motion.p>
-
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1.2, duration: 0.5 }}
-                    className="flex flex-col sm:flex-row gap-6 justify-center w-full sm:w-auto"
-                >
-                    <Magnetic strength={0.2}>
-                        <a
-                            href={downloadUrl}
-                            className="relative inline-flex h-16 items-center justify-center rounded-2xl btn-primary px-10 py-1 text-base font-bold transition-all hover:scale-105 active:scale-95 group shadow-2xl"
-                        >
-                            <PlatformIcon className="h-6 w-6 mr-3" />
-                            Download Free for {platformName}
-                        </a>
-                    </Magnetic>
-
-                    <Magnetic strength={0.3}>
-                        <a
-                            href="#features"
-                            className="inline-flex items-center justify-center h-16 px-12 rounded-2xl btn-secondary text-base font-bold transition-all hover:scale-105 active:scale-95 group"
-                        >
-                            Explore Features
-                            <ArrowDown className="w-4 h-4 ml-2 group-hover:translate-y-1 transition-transform" />
-                        </a>
-                    </Magnetic>
-                </motion.div>
-
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1.3, duration: 0.5 }}
-                    className="mt-10 mb-20 flex flex-col items-center gap-4"
-                >
-                    <div className="flex items-center gap-4 flex-wrap justify-center">
-                        {displayedDownloads > 0 && (
-                            <div className="flex items-center gap-2 text-sm font-bold text-primary bg-primary/10 px-5 py-2 rounded-full border border-primary/20 shadow-[0_0_15px_rgba(185,124,221,0.15)] font-urbanist">
-                                <Users className="h-4 w-4" />
-                                <span>Trusted by {displayedDownloads.toLocaleString()}+ photographers</span>
-                            </div>
-                        )}
-                        <div className="flex items-center gap-2 text-sm font-bold text-accent bg-accent/10 px-5 py-2 rounded-full border border-accent/20 shadow-[0_0_15px_rgba(72,105,207,0.15)] font-urbanist">
-                            <Shield className="h-4 w-4" />
-                            <span>Privacy First. No Cloud.</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm font-bold text-muted-foreground bg-muted/20 px-5 py-2 rounded-full border border-border font-urbanist">
-                            <Zap className="h-4 w-4" />
-                            <span>No Credit Card Required</span>
-                        </div>
-                    </div>
-                </motion.div>
+        <section className="relative w-full py-16 md:py-32 px-4 flex flex-col items-center justify-center overflow-hidden text-center">
+            {/* Version Badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-6">
+                <span className="flex h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span>
+                {versionLabel} Released
             </div>
 
+            {/* Main Heading */}
+            <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-foreground mb-6 leading-tight max-w-4xl">
+                Cull Photos at <br />
+                <span className="text-primary">Muscle Memory Speed</span>
+            </h1>
 
+            {/* Subtitle */}
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed px-2">
+                The ultra-lightweight engine to sort thousands of shots instantly. 
+                No import lag, ultra-fast viewing, and a workflow that keeps your hands on the keyboard.
+            </p>
 
-
-
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 2, duration: 1 }}
-                className="absolute bottom-8 left-0 w-full flex justify-center"
-            >
-                <motion.div
-                    animate={{ y: [0, 10, 0] }}
-                    transition={{ repeat: Infinity, duration: 2 }}
+            {/* Call to Action Buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 w-full max-w-sm sm:max-w-none">
+                <a
+                    href={downloadUrl}
+                    className="flex items-center justify-center h-12 sm:h-14 px-8 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity w-full sm:w-auto min-w-[200px]"
                 >
-                    <ArrowDown className="text-neutral-400 dark:text-neutral-600 transition-colors" />
-                </motion.div>
-            </motion.div>
+                    <PlatformIcon className="h-5 w-5 mr-3 shrink-0" />
+                    Download for {platformName}
+                </a>
+                <a
+                    href="#features"
+                    className="flex items-center justify-center h-12 sm:h-14 px-8 rounded-xl bg-secondary text-secondary-foreground font-bold hover:bg-secondary/80 transition-colors w-full sm:w-auto"
+                >
+                    Explore Features
+                </a>
+            </div>
+
+            {/* Trust Section */}
+            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-[11px] sm:text-sm font-medium text-muted-foreground">
+                <div className="flex items-center gap-2">
+                    <Users className="h-4 w-4 text-primary" />
+                    <span>{displayedDownloads.toLocaleString()}+ photogs</span>
+                </div>
+                <div className="flex items-center gap-2">
+                    <Shield className="h-4 w-4 text-primary" />
+                    <span>Local Privacy</span>
+                </div>
+                <div className="flex items-center gap-2">
+                    <Zap className="h-4 w-4 text-primary" />
+                    <span>Fast Engine</span>
+                </div>
+            </div>
         </section>
     )
 }
-
